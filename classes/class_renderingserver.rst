@@ -253,6 +253,8 @@ Methods
    +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                                           | :ref:`canvas_set_item_mirroring<class_RenderingServer_method_canvas_set_item_mirroring>`\ (\ canvas\: :ref:`RID<class_RID>`, item\: :ref:`RID<class_RID>`, mirroring\: :ref:`Vector2<class_Vector2>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
    +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                                           | :ref:`canvas_set_item_repeat<class_RenderingServer_method_canvas_set_item_repeat>`\ (\ item\: :ref:`RID<class_RID>`, repeat_size\: :ref:`Vector2<class_Vector2>`, repeat_times\: :ref:`int<class_int>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+   +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                                           | :ref:`canvas_set_modulate<class_RenderingServer_method_canvas_set_modulate>`\ (\ canvas\: :ref:`RID<class_RID>`, color\: :ref:`Color<class_Color>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
    +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                                           | :ref:`canvas_set_shadow_texture_size<class_RenderingServer_method_canvas_set_shadow_texture_size>`\ (\ size\: :ref:`int<class_int>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
@@ -6896,6 +6898,18 @@ A copy of the canvas item will be drawn with a local offset of the mirroring :re
 
 ----
 
+.. _class_RenderingServer_method_canvas_set_item_repeat:
+
+.. rst-class:: classref-method
+
+|void| **canvas_set_item_repeat**\ (\ item\: :ref:`RID<class_RID>`, repeat_size\: :ref:`Vector2<class_Vector2>`, repeat_times\: :ref:`int<class_int>`\ )
+
+A copy of the canvas item will be drawn with a local offset of the ``repeat_size`` by the number of times of the ``repeat_times``. As the ``repeat_times`` increases, the copies will spread away from the origin texture.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_RenderingServer_method_canvas_set_modulate:
 
 .. rst-class:: classref-method
@@ -9202,7 +9216,7 @@ Calculates and returns the axis-aligned bounding box that encloses all instances
 
 :ref:`PackedFloat32Array<class_PackedFloat32Array>` **multimesh_get_buffer**\ (\ multimesh\: :ref:`RID<class_RID>`\ ) |const|
 
-Returns the MultiMesh data (such as instance transforms, colors, etc). See :ref:`multimesh_set_buffer<class_RenderingServer_method_multimesh_set_buffer>` for a description of the returned data.
+Returns the MultiMesh data (such as instance transforms, colors, etc.). See :ref:`multimesh_set_buffer<class_RenderingServer_method_multimesh_set_buffer>` for details on the returned data.
 
 \ **Note:** If the buffer is in the engine's internal cache, it will have to be fetched from GPU memory and possibly decompressed. This means :ref:`multimesh_get_buffer<class_RenderingServer_method_multimesh_get_buffer>` is potentially a slow operation and should be avoided whenever possible.
 
@@ -11126,7 +11140,7 @@ Returns the viewport's last rendered frame.
 
 |void| **viewport_remove_canvas**\ (\ viewport\: :ref:`RID<class_RID>`, canvas\: :ref:`RID<class_RID>`\ )
 
-Detaches a viewport from a canvas and vice versa.
+Detaches a viewport from a canvas.
 
 .. rst-class:: classref-item-separator
 

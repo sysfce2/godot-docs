@@ -77,6 +77,8 @@ Properties
    +---------------------------------------------------------------+-------------------------------------------------------------------------------------+
    | :ref:`Marshalls<class_Marshalls>`                             | :ref:`Marshalls<class_@GlobalScope_property_Marshalls>`                             |
    +---------------------------------------------------------------+-------------------------------------------------------------------------------------+
+   | :ref:`NativeMenu<class_NativeMenu>`                           | :ref:`NativeMenu<class_@GlobalScope_property_NativeMenu>`                           |
+   +---------------------------------------------------------------+-------------------------------------------------------------------------------------+
    | :ref:`NavigationMeshGenerator<class_NavigationMeshGenerator>` | :ref:`NavigationMeshGenerator<class_@GlobalScope_property_NavigationMeshGenerator>` |
    +---------------------------------------------------------------+-------------------------------------------------------------------------------------+
    | :ref:`NavigationServer2D<class_NavigationServer2D>`           | :ref:`NavigationServer2D<class_@GlobalScope_property_NavigationServer2D>`           |
@@ -4957,6 +4959,20 @@ The :ref:`Marshalls<class_Marshalls>` singleton.
 
 ----
 
+.. _class_@GlobalScope_property_NativeMenu:
+
+.. rst-class:: classref-property
+
+:ref:`NativeMenu<class_NativeMenu>` **NativeMenu**
+
+The :ref:`NativeMenu<class_NativeMenu>` singleton.
+
+\ **Note:** Only implemented on macOS.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_@GlobalScope_property_NavigationMeshGenerator:
 
 .. rst-class:: classref-property
@@ -6677,7 +6693,7 @@ Given a ``seed``, returns a :ref:`PackedInt64Array<class_PackedInt64Array>` of s
 
 :ref:`float<class_float>` **randf**\ (\ )
 
-Returns a random floating point value between ``0.0`` and ``1.0`` (inclusive).
+Returns a random floating-point value between ``0.0`` and ``1.0`` (inclusive).
 
 
 .. tabs::
@@ -6702,7 +6718,7 @@ Returns a random floating point value between ``0.0`` and ``1.0`` (inclusive).
 
 :ref:`float<class_float>` **randf_range**\ (\ from\: :ref:`float<class_float>`, to\: :ref:`float<class_float>`\ )
 
-Returns a random floating point value between ``from`` and ``to`` (inclusive).
+Returns a random floating-point value between ``from`` and ``to`` (inclusive).
 
 
 .. tabs::
@@ -6729,7 +6745,9 @@ Returns a random floating point value between ``from`` and ``to`` (inclusive).
 
 :ref:`float<class_float>` **randfn**\ (\ mean\: :ref:`float<class_float>`, deviation\: :ref:`float<class_float>`\ )
 
-Returns a normally-distributed pseudo-random floating point value using Box-Muller transform with the specified ``mean`` and a standard ``deviation``. This is also called Gaussian distribution.
+Returns a `normally-distributed <https://en.wikipedia.org/wiki/Normal_distribution>`__, pseudo-random floating-point value from the specified ``mean`` and a standard ``deviation``. This is also known as a Gaussian distribution.
+
+\ **Note:** This method uses the `Box-Muller transform <https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform>`__ algorithm.
 
 .. rst-class:: classref-item-separator
 
@@ -7079,7 +7097,7 @@ Compared to :ref:`ease<class_@GlobalScope_method_ease>` with a curve value of ``
 
 :ref:`Variant<class_Variant>` **snapped**\ (\ x\: :ref:`Variant<class_Variant>`, step\: :ref:`Variant<class_Variant>`\ )
 
-Returns the multiple of ``step`` that is the closest to ``x``. This can also be used to round a floating point number to an arbitrary number of decimals.
+Returns the multiple of ``step`` that is the closest to ``x``. This can also be used to round a floating-point number to an arbitrary number of decimals.
 
 The returned value is the same type of :ref:`Variant<class_Variant>` as ``step``. Supported types: :ref:`int<class_int>`, :ref:`float<class_float>`, :ref:`Vector2<class_Vector2>`, :ref:`Vector2i<class_Vector2i>`, :ref:`Vector3<class_Vector3>`, :ref:`Vector3i<class_Vector3i>`, :ref:`Vector4<class_Vector4>`, :ref:`Vector4i<class_Vector4i>`.
 
@@ -7104,7 +7122,7 @@ See also :ref:`ceil<class_@GlobalScope_method_ceil>`, :ref:`floor<class_@GlobalS
 
 :ref:`float<class_float>` **snappedf**\ (\ x\: :ref:`float<class_float>`, step\: :ref:`float<class_float>`\ )
 
-Returns the multiple of ``step`` that is the closest to ``x``. This can also be used to round a floating point number to an arbitrary number of decimals.
+Returns the multiple of ``step`` that is the closest to ``x``. This can also be used to round a floating-point number to an arbitrary number of decimals.
 
 A type-safe version of :ref:`snapped<class_@GlobalScope_method_snapped>`, returning a :ref:`float<class_float>`.
 
