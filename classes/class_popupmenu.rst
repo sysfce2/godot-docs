@@ -37,21 +37,21 @@ Properties
 .. table::
    :widths: auto
 
-   +-----------------------------+----------------------------------------------------------------------------------------------------+-----------+
-   | :ref:`bool<class_bool>`     | :ref:`allow_search<class_PopupMenu_property_allow_search>`                                         | ``true``  |
-   +-----------------------------+----------------------------------------------------------------------------------------------------+-----------+
-   | :ref:`bool<class_bool>`     | :ref:`hide_on_checkable_item_selection<class_PopupMenu_property_hide_on_checkable_item_selection>` | ``true``  |
-   +-----------------------------+----------------------------------------------------------------------------------------------------+-----------+
-   | :ref:`bool<class_bool>`     | :ref:`hide_on_item_selection<class_PopupMenu_property_hide_on_item_selection>`                     | ``true``  |
-   +-----------------------------+----------------------------------------------------------------------------------------------------+-----------+
-   | :ref:`bool<class_bool>`     | :ref:`hide_on_state_item_selection<class_PopupMenu_property_hide_on_state_item_selection>`         | ``false`` |
-   +-----------------------------+----------------------------------------------------------------------------------------------------+-----------+
-   | :ref:`int<class_int>`       | :ref:`item_count<class_PopupMenu_property_item_count>`                                             | ``0``     |
-   +-----------------------------+----------------------------------------------------------------------------------------------------+-----------+
-   | :ref:`float<class_float>`   | :ref:`submenu_popup_delay<class_PopupMenu_property_submenu_popup_delay>`                           | ``0.3``   |
-   +-----------------------------+----------------------------------------------------------------------------------------------------+-----------+
-   | :ref:`String<class_String>` | :ref:`system_menu_root<class_PopupMenu_property_system_menu_root>`                                 | ``""``    |
-   +-----------------------------+----------------------------------------------------------------------------------------------------+-----------+
+   +-------------------------------------------------+----------------------------------------------------------------------------------------------------+-----------+
+   | :ref:`bool<class_bool>`                         | :ref:`allow_search<class_PopupMenu_property_allow_search>`                                         | ``true``  |
+   +-------------------------------------------------+----------------------------------------------------------------------------------------------------+-----------+
+   | :ref:`bool<class_bool>`                         | :ref:`hide_on_checkable_item_selection<class_PopupMenu_property_hide_on_checkable_item_selection>` | ``true``  |
+   +-------------------------------------------------+----------------------------------------------------------------------------------------------------+-----------+
+   | :ref:`bool<class_bool>`                         | :ref:`hide_on_item_selection<class_PopupMenu_property_hide_on_item_selection>`                     | ``true``  |
+   +-------------------------------------------------+----------------------------------------------------------------------------------------------------+-----------+
+   | :ref:`bool<class_bool>`                         | :ref:`hide_on_state_item_selection<class_PopupMenu_property_hide_on_state_item_selection>`         | ``false`` |
+   +-------------------------------------------------+----------------------------------------------------------------------------------------------------+-----------+
+   | :ref:`int<class_int>`                           | :ref:`item_count<class_PopupMenu_property_item_count>`                                             | ``0``     |
+   +-------------------------------------------------+----------------------------------------------------------------------------------------------------+-----------+
+   | :ref:`float<class_float>`                       | :ref:`submenu_popup_delay<class_PopupMenu_property_submenu_popup_delay>`                           | ``0.3``   |
+   +-------------------------------------------------+----------------------------------------------------------------------------------------------------+-----------+
+   | :ref:`SystemMenus<enum_NativeMenu_SystemMenus>` | :ref:`system_menu_id<class_PopupMenu_property_system_menu_id>`                                     | ``0``     |
+   +-------------------------------------------------+----------------------------------------------------------------------------------------------------+-----------+
 
 .. rst-class:: classref-reftable-group
 
@@ -220,11 +220,11 @@ Theme Properties
    +-----------------------------------+-----------------------------------------------------------------------------------------------+-----------------------------------+
    | :ref:`Color<class_Color>`         | :ref:`font_hover_color<class_PopupMenu_theme_color_font_hover_color>`                         | ``Color(0.875, 0.875, 0.875, 1)`` |
    +-----------------------------------+-----------------------------------------------------------------------------------------------+-----------------------------------+
-   | :ref:`Color<class_Color>`         | :ref:`font_outline_color<class_PopupMenu_theme_color_font_outline_color>`                     | ``Color(1, 1, 1, 1)``             |
+   | :ref:`Color<class_Color>`         | :ref:`font_outline_color<class_PopupMenu_theme_color_font_outline_color>`                     | ``Color(0, 0, 0, 1)``             |
    +-----------------------------------+-----------------------------------------------------------------------------------------------+-----------------------------------+
    | :ref:`Color<class_Color>`         | :ref:`font_separator_color<class_PopupMenu_theme_color_font_separator_color>`                 | ``Color(0.875, 0.875, 0.875, 1)`` |
    +-----------------------------------+-----------------------------------------------------------------------------------------------+-----------------------------------+
-   | :ref:`Color<class_Color>`         | :ref:`font_separator_outline_color<class_PopupMenu_theme_color_font_separator_outline_color>` | ``Color(1, 1, 1, 1)``             |
+   | :ref:`Color<class_Color>`         | :ref:`font_separator_outline_color<class_PopupMenu_theme_color_font_separator_outline_color>` | ``Color(0, 0, 0, 1)``             |
    +-----------------------------------+-----------------------------------------------------------------------------------------------+-----------------------------------+
    | :ref:`int<class_int>`             | :ref:`h_separation<class_PopupMenu_theme_constant_h_separation>`                              | ``4``                             |
    +-----------------------------------+-----------------------------------------------------------------------------------------------+-----------------------------------+
@@ -445,18 +445,18 @@ Sets the delay time in seconds for the submenu item to popup on mouse hovering. 
 
 ----
 
-.. _class_PopupMenu_property_system_menu_root:
+.. _class_PopupMenu_property_system_menu_id:
 
 .. rst-class:: classref-property
 
-:ref:`String<class_String>` **system_menu_root** = ``""``
+:ref:`SystemMenus<enum_NativeMenu_SystemMenus>` **system_menu_id** = ``0``
 
 .. rst-class:: classref-property-setget
 
-- |void| **set_system_menu_root**\ (\ value\: :ref:`String<class_String>`\ )
-- :ref:`String<class_String>` **get_system_menu_root**\ (\ )
+- |void| **set_system_menu**\ (\ value\: :ref:`SystemMenus<enum_NativeMenu_SystemMenus>`\ )
+- :ref:`SystemMenus<enum_NativeMenu_SystemMenus>` **get_system_menu**\ (\ )
 
-If set to one of the values returned by :ref:`DisplayServer.global_menu_get_system_menu_roots<class_DisplayServer_method_global_menu_get_system_menu_roots>`, this **PopupMenu** is bound to the special system menu. Only one **PopupMenu** can be bound to each special menu at a time.
+If set to one of the values of :ref:`SystemMenus<enum_NativeMenu_SystemMenus>`, this **PopupMenu** is bound to the special system menu. Only one **PopupMenu** can be bound to each special menu at a time.
 
 .. rst-class:: classref-section-separator
 
@@ -1458,7 +1458,7 @@ The default text :ref:`Color<class_Color>` for menu items' names.
 
 .. rst-class:: classref-themeproperty
 
-:ref:`Color<class_Color>` **font_outline_color** = ``Color(1, 1, 1, 1)``
+:ref:`Color<class_Color>` **font_outline_color** = ``Color(0, 0, 0, 1)``
 
 The tint of text outline of the menu item.
 
@@ -1482,7 +1482,7 @@ The tint of text outline of the menu item.
 
 .. rst-class:: classref-themeproperty
 
-:ref:`Color<class_Color>` **font_separator_outline_color** = ``Color(1, 1, 1, 1)``
+:ref:`Color<class_Color>` **font_separator_outline_color** = ``Color(0, 0, 0, 1)``
 
 The tint of text outline of the labeled separator.
 

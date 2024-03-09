@@ -175,6 +175,7 @@ Nodes
     class_optionbutton
     class_panel
     class_panelcontainer
+    class_parallax2d
     class_parallaxbackground
     class_parallaxlayer
     class_path2d
@@ -262,6 +263,7 @@ Nodes
     class_window
     class_worldenvironment
     class_xranchor3d
+    class_xrbodymodifier3d
     class_xrcamera3d
     class_xrcontroller3d
     class_xrfacemodifier3d
@@ -781,6 +783,7 @@ Other objects
     class_multiplayerpeer
     class_multiplayerpeerextension
     class_mutex
+    class_nativemenu
     class_navigationmeshgenerator
     class_navigationpathqueryparameters2d
     class_navigationpathqueryparameters3d
@@ -934,6 +937,7 @@ Other objects
     class_webxrinterface
     class_workerthreadpool
     class_xmlparser
+    class_xrbodytracker
     class_xrfacetracker
     class_xrhandtracker
     class_xrinterface
