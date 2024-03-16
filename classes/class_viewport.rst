@@ -21,7 +21,7 @@ Abstract base class for viewports. Encapsulates drawing and interaction with a g
 Description
 -----------
 
-A Viewport creates a different view into the screen, or a sub-view inside another viewport. Children 2D Nodes will display on it, and children Camera3D 3D nodes will render on it too.
+A **Viewport** creates a different view into the screen, or a sub-view inside another viewport. Child 2D nodes will display on it, and child Camera3D 3D nodes will render on it too.
 
 Optionally, a viewport can have its own 2D or 3D world, so it doesn't share what it draws with other viewports.
 
@@ -236,6 +236,8 @@ Signals
 **gui_focus_changed**\ (\ node\: :ref:`Control<class_Control>`\ )
 
 Emitted when a Control node grabs keyboard focus.
+
+\ **Note:** A Control node losing focus doesn't cause this signal to be emitted.
 
 .. rst-class:: classref-item-separator
 
@@ -1779,7 +1781,7 @@ In some cases, debanding may introduce a slightly noticeable dithering pattern. 
 - |void| **set_use_hdr_2d**\ (\ value\: :ref:`bool<class_bool>`\ )
 - :ref:`bool<class_bool>` **is_using_hdr_2d**\ (\ )
 
-If ``true``, 2D rendering will use an high dynamic range (HDR) format framebuffer matching the bit depth of the 3D framebuffer. When using the Forward+ renderer this will be a ``RGBA16`` framebuffer, while when using the Mobile renderer it will be a ``RGB10_A2`` framebuffer. Additionally, 2D rendering will take place in linear color space and will be converted to sRGB space immediately before blitting to the screen (if the Viewport is attached to the screen). Practically speaking, this means that the end result of the Viewport will not be clamped into the ``0-1`` range and can be used in 3D rendering without color space adjustments. This allows 2D rendering to take advantage of effects requiring high dynamic range (e.g. 2D glow) as well as substantially improves the appearance of effects requiring highly detailed gradients.
+If ``true``, 2D rendering will use an high dynamic range (HDR) format framebuffer matching the bit depth of the 3D framebuffer. When using the Forward+ renderer this will be an ``RGBA16`` framebuffer, while when using the Mobile renderer it will be an ``RGB10_A2`` framebuffer. Additionally, 2D rendering will take place in linear color space and will be converted to sRGB space immediately before blitting to the screen (if the Viewport is attached to the screen). Practically speaking, this means that the end result of the Viewport will not be clamped into the ``0-1`` range and can be used in 3D rendering without color space adjustments. This allows 2D rendering to take advantage of effects requiring high dynamic range (e.g. 2D glow) as well as substantially improves the appearance of effects requiring highly detailed gradients.
 
 \ **Note:** This setting will have no effect when using the GL Compatibility renderer as the GL Compatibility renderer always renders in low dynamic range for performance reasons.
 
@@ -1878,16 +1880,16 @@ The texture *must* use a lossless compression format so that colors can be match
 
 ::
 
-    - 1x1 = rgb(0, 0, 0)     - #000000
-    - 1x2 = rgb(0, 85, 0)    - #005500
-    - 2x1 = rgb(85, 0, 0)    - #550000
-    - 2x2 = rgb(85, 85, 0)   - #555500
-    - 2x4 = rgb(85, 170, 0)  - #55aa00
-    - 4x2 = rgb(170, 85, 0)  - #aa5500
-    - 4x4 = rgb(170, 170, 0) - #aaaa00
-    - 4x8 = rgb(170, 255, 0) - #aaff00 - Not supported on most hardware
-    - 8x4 = rgb(255, 170, 0) - #ffaa00 - Not supported on most hardware
-    - 8x8 = rgb(255, 255, 0) - #ffff00 - Not supported on most hardware
+    - 1×1 = rgb(0, 0, 0)     - #000000
+    - 1×2 = rgb(0, 85, 0)    - #005500
+    - 2×1 = rgb(85, 0, 0)    - #550000
+    - 2×2 = rgb(85, 85, 0)   - #555500
+    - 2×4 = rgb(85, 170, 0)  - #55aa00
+    - 4×2 = rgb(170, 85, 0)  - #aa5500
+    - 4×4 = rgb(170, 170, 0) - #aaaa00
+    - 4×8 = rgb(170, 255, 0) - #aaff00 - Not supported on most hardware
+    - 8×4 = rgb(255, 170, 0) - #ffaa00 - Not supported on most hardware
+    - 8×8 = rgb(255, 255, 0) - #ffff00 - Not supported on most hardware
 
 .. rst-class:: classref-item-separator
 
