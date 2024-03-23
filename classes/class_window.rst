@@ -56,6 +56,8 @@ Properties
    +-----------------------------------------------------------------+-----------------------------------------------------------------------------------+--------------------------+
    | :ref:`bool<class_bool>`                                         | :ref:`extend_to_title<class_Window_property_extend_to_title>`                     | ``false``                |
    +-----------------------------------------------------------------+-----------------------------------------------------------------------------------+--------------------------+
+   | :ref:`bool<class_bool>`                                         | :ref:`force_native<class_Window_property_force_native>`                           | ``false``                |
+   +-----------------------------------------------------------------+-----------------------------------------------------------------------------------+--------------------------+
    | :ref:`WindowInitialPosition<enum_Window_WindowInitialPosition>` | :ref:`initial_position<class_Window_property_initial_position>`                   | ``0``                    |
    +-----------------------------------------------------------------+-----------------------------------------------------------------------------------+--------------------------+
    | :ref:`bool<class_bool>`                                         | :ref:`keep_title_visible<class_Window_property_keep_title_visible>`               | ``false``                |
@@ -262,7 +264,7 @@ Theme Properties
    +-----------------------------------+--------------------------------------------------------------------------------------+-----------------------------------+
    | :ref:`Color<class_Color>`         | :ref:`title_color<class_Window_theme_color_title_color>`                             | ``Color(0.875, 0.875, 0.875, 1)`` |
    +-----------------------------------+--------------------------------------------------------------------------------------+-----------------------------------+
-   | :ref:`Color<class_Color>`         | :ref:`title_outline_modulate<class_Window_theme_color_title_outline_modulate>`       | ``Color(1, 1, 1, 1)``             |
+   | :ref:`Color<class_Color>`         | :ref:`title_outline_modulate<class_Window_theme_color_title_outline_modulate>`       | ``Color(0, 0, 0, 1)``             |
    +-----------------------------------+--------------------------------------------------------------------------------------+-----------------------------------+
    | :ref:`int<class_int>`             | :ref:`close_h_offset<class_Window_theme_constant_close_h_offset>`                    | ``18``                            |
    +-----------------------------------+--------------------------------------------------------------------------------------+-----------------------------------+
@@ -1076,6 +1078,23 @@ If ``true``, the **Window** contents is expanded to the full size of the window,
 
 ----
 
+.. _class_Window_property_force_native:
+
+.. rst-class:: classref-property
+
+:ref:`bool<class_bool>` **force_native** = ``false``
+
+.. rst-class:: classref-property-setget
+
+- |void| **set_force_native**\ (\ value\: :ref:`bool<class_bool>`\ )
+- :ref:`bool<class_bool>` **get_force_native**\ (\ )
+
+If ``true``, native window will be used regardless of parent viewport and project settings.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_Window_property_initial_position:
 
 .. rst-class:: classref-property
@@ -1632,7 +1651,7 @@ Ends a bulk theme override update. See :ref:`begin_bulk_theme_override<class_Win
 
 :ref:`Vector2<class_Vector2>` **get_contents_minimum_size**\ (\ ) |const|
 
-Returns the combined minimum size from the child :ref:`Control<class_Control>` nodes of the window. Use :ref:`child_controls_changed<class_Window_method_child_controls_changed>` to update it when children nodes have changed.
+Returns the combined minimum size from the child :ref:`Control<class_Control>` nodes of the window. Use :ref:`child_controls_changed<class_Window_method_child_controls_changed>` to update it when child nodes have changed.
 
 The value returned by this method can be overridden with :ref:`_get_contents_minimum_size<class_Window_private_method__get_contents_minimum_size>`.
 
@@ -2443,7 +2462,7 @@ The color of the title's text.
 
 .. rst-class:: classref-themeproperty
 
-:ref:`Color<class_Color>` **title_outline_modulate** = ``Color(1, 1, 1, 1)``
+:ref:`Color<class_Color>` **title_outline_modulate** = ``Color(0, 0, 0, 1)``
 
 The color of the title's text outline.
 
