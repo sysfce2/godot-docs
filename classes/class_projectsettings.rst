@@ -475,6 +475,8 @@ Properties
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                             | :ref:`editor/naming/scene_name_casing<class_ProjectSettings_property_editor/naming/scene_name_casing>`                                                                                                     | ``2``                                                                                            |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
+   | :ref:`int<class_int>`                             | :ref:`editor/naming/script_name_casing<class_ProjectSettings_property_editor/naming/script_name_casing>`                                                                                                   | ``0``                                                                                            |
+   +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`String<class_String>`                       | :ref:`editor/run/main_run_args<class_ProjectSettings_property_editor/run/main_run_args>`                                                                                                                   | ``""``                                                                                           |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`PackedStringArray<class_PackedStringArray>` | :ref:`editor/script/search_in_file_extensions<class_ProjectSettings_property_editor/script/search_in_file_extensions>`                                                                                     | ``PackedStringArray("gd", "gdshader")``                                                          |
@@ -2088,7 +2090,7 @@ Limiting the FPS can be useful to reduce system power consumption, which reduces
 
 If :ref:`display/window/vsync/vsync_mode<class_ProjectSettings_property_display/window/vsync/vsync_mode>` is set to ``Enabled`` or ``Adaptive``, it takes precedence and the forced FPS number cannot exceed the monitor's refresh rate.
 
-If :ref:`display/window/vsync/vsync_mode<class_ProjectSettings_property_display/window/vsync/vsync_mode>` is ``Enabled``, on monitors with variable refresh rate enabled (G-Sync/FreeSync), using a FPS limit a few frames lower than the monitor's refresh rate will `reduce input lag while avoiding tearing <https://blurbusters.com/howto-low-lag-vsync-on/>`__.
+If :ref:`display/window/vsync/vsync_mode<class_ProjectSettings_property_display/window/vsync/vsync_mode>` is ``Enabled``, on monitors with variable refresh rate enabled (G-Sync/FreeSync), using an FPS limit a few frames lower than the monitor's refresh rate will `reduce input lag while avoiding tearing <https://blurbusters.com/howto-low-lag-vsync-on/>`__.
 
 If :ref:`display/window/vsync/vsync_mode<class_ProjectSettings_property_display/window/vsync/vsync_mode>` is ``Disabled``, limiting the FPS to a high value that can be consistently reached on the system can reduce input lag compared to an uncapped framerate. Since this works by ensuring the GPU load is lower than 100%, this latency reduction is only effective in GPU-bottlenecked scenarios, not CPU-bottlenecked scenarios.
 
@@ -2528,6 +2530,8 @@ When set to ``warn`` or ``error``, produces a warning or an error respectively w
 
 :ref:`int<class_int>` **debug/gdscript/warnings/constant_used_as_function** = ``1``
 
+**Deprecated:** This warning is never produced. Instead, an error is generated if the expression type is known at compile time.
+
 When set to ``warn`` or ``error``, produces a warning or an error respectively when a constant is used as a function.
 
 .. rst-class:: classref-item-separator
@@ -2541,6 +2545,8 @@ When set to ``warn`` or ``error``, produces a warning or an error respectively w
 :ref:`int<class_int>` **debug/gdscript/warnings/deprecated_keyword** = ``1``
 
 When set to ``warn`` or ``error``, produces a warning or an error respectively when deprecated keywords are used.
+
+\ **Note:** There are currently no deprecated keywords, so this warning is never produced.
 
 .. rst-class:: classref-item-separator
 
@@ -2587,6 +2593,8 @@ If ``true``, scripts in the ``res://addons`` folder will not generate warnings.
 .. rst-class:: classref-property
 
 :ref:`int<class_int>` **debug/gdscript/warnings/function_used_as_property** = ``1``
+
+**Deprecated:** This warning is never produced. When a function is used as a property, a :ref:`Callable<class_Callable>` is returned.
 
 When set to ``warn`` or ``error``, produces a warning or an error respectively when using a function as if it is a property.
 
@@ -2722,6 +2730,8 @@ When set to ``warn`` or ``error``, produces a warning or an error respectively w
 
 :ref:`int<class_int>` **debug/gdscript/warnings/property_used_as_function** = ``1``
 
+**Deprecated:** This warning is never produced. Instead, an error is generated if the expression type is known at compile time.
+
 When set to ``warn`` or ``error``, produces a warning or an error respectively when using a property as if it is a function.
 
 .. rst-class:: classref-item-separator
@@ -2770,7 +2780,7 @@ When enabled, using a property, enum, or function that was renamed since Godot 3
 
 :ref:`int<class_int>` **debug/gdscript/warnings/return_value_discarded** = ``0``
 
-When set to ``warn`` or ``error``, produces a warning or an error respectively when calling a function without using its return value (by assigning it to a variable or using it as a function argument). Such return values are sometimes used to denote possible errors using the :ref:`Error<enum_@GlobalScope_Error>` enum.
+When set to ``warn`` or ``error``, produces a warning or an error respectively when calling a function without using its return value (by assigning it to a variable or using it as a function argument). These return values are sometimes used to indicate possible errors using the :ref:`Error<enum_@GlobalScope_Error>` enum.
 
 .. rst-class:: classref-item-separator
 
@@ -3012,7 +3022,7 @@ When set to ``warn`` or ``error``, produces a warning or an error respectively w
 
 :ref:`int<class_int>` **debug/gdscript/warnings/unused_signal** = ``1``
 
-When set to ``warn`` or ``error``, produces a warning or an error respectively when a signal is declared but never emitted.
+When set to ``warn`` or ``error``, produces a warning or an error respectively when a signal is declared but never explicitly used in the class.
 
 .. rst-class:: classref-item-separator
 
@@ -3144,7 +3154,7 @@ If ``true``, enables specific shader warnings (see ``debug/shader_language/warni
 
 :ref:`bool<class_bool>` **debug/shader_language/warnings/float_comparison** = ``true``
 
-When set to ``true``, produces a warning when two floating point numbers are compared directly with the ``==`` operator or the ``!=`` operator.
+When set to ``true``, produces a warning when two floating-point numbers are compared directly with the ``==`` operator or the ``!=`` operator.
 
 .. rst-class:: classref-item-separator
 
@@ -4366,7 +4376,7 @@ The format of the default signal callback name when a signal connects to the sam
 
 :ref:`int<class_int>` **editor/naming/node_name_casing** = ``0``
 
-When creating node names automatically, set the type of casing in this project. This is mostly an editor setting.
+When creating node names automatically, set the type of casing to use in this project. This is mostly an editor setting.
 
 .. rst-class:: classref-item-separator
 
@@ -4390,7 +4400,19 @@ What to use to separate node name from number. This is mostly an editor setting.
 
 :ref:`int<class_int>` **editor/naming/scene_name_casing** = ``2``
 
-When generating file names from scene root node, set the type of casing in this project. This is mostly an editor setting.
+When generating scene file names from scene root node, set the type of casing to use in this project. This is mostly an editor setting.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_ProjectSettings_property_editor/naming/script_name_casing:
+
+.. rst-class:: classref-property
+
+:ref:`int<class_int>` **editor/naming/script_name_casing** = ``0``
+
+When generating script file names from the selected node, set the type of casing to use in this project. This is mostly an editor setting.
 
 .. rst-class:: classref-item-separator
 
@@ -4406,7 +4428,7 @@ The command-line arguments to append to Godot's own command line when running th
 
 It is possible to make another executable run Godot by using the ``%command%`` placeholder. The placeholder will be replaced with Godot's own command line. Program-specific arguments should be placed *before* the placeholder, whereas Godot-specific arguments should be placed *after* the placeholder.
 
-For example, this can be used to force the project to run on the dedicated GPU in a NVIDIA Optimus system on Linux:
+For example, this can be used to force the project to run on the dedicated GPU in an NVIDIA Optimus system on Linux:
 
 ::
 
@@ -4514,7 +4536,7 @@ Override for :ref:`filesystem/import/blender/enabled<class_ProjectSettings_prope
 
 If ``true``, Autodesk FBX 3D scene files with the ``.fbx`` extension will be imported by converting them to glTF 2.0.
 
-This requires configuring a path to a FBX2glTF executable in the editor settings at :ref:`EditorSettings.filesystem/import/fbx2gltf/fbx2gltf_path<class_EditorSettings_property_filesystem/import/fbx2gltf/fbx2gltf_path>`.
+This requires configuring a path to an FBX2glTF executable in the editor settings at :ref:`EditorSettings.filesystem/import/fbx2gltf/fbx2gltf_path<class_EditorSettings_property_filesystem/import/fbx2gltf/fbx2gltf_path>`.
 
 .. rst-class:: classref-item-separator
 
@@ -6118,7 +6140,7 @@ Root node default layout direction.
 
 Specifies the :ref:`TextServer<class_TextServer>` to use. If left empty, the default will be used.
 
-"ICU / HarfBuzz / Graphite" is the most advanced text driver, supporting right-to-left typesetting and complex scripts (for languages like Arabic, Hebrew, etc). The "Fallback" text driver does not support right-to-left typesetting and complex scripts.
+"ICU / HarfBuzz / Graphite" is the most advanced text driver, supporting right-to-left typesetting and complex scripts (for languages like Arabic, Hebrew, etc.). The "Fallback" text driver does not support right-to-left typesetting and complex scripts.
 
 \ **Note:** The driver in use can be overridden at runtime via the ``--text-driver`` :doc:`command line argument <../tutorials/editor/command_line_tutorial>`.
 
@@ -9384,11 +9406,13 @@ The size of the 2D shadow atlas in pixels. Higher values result in more precise 
 
 :ref:`bool<class_bool>` **rendering/2d/snap/snap_2d_transforms_to_pixel** = ``false``
 
-If ``true``, :ref:`CanvasItem<class_CanvasItem>` nodes will internally snap to full pixels. Useful for low-resolution pixel art games. Their position can still be sub-pixel, but the decimals will not have effect. This can lead to a crisper appearance at the cost of less smooth movement, especially when :ref:`Camera2D<class_Camera2D>` smoothing is enabled.
+If ``true``, :ref:`CanvasItem<class_CanvasItem>` nodes will internally snap to full pixels. Useful for low-resolution pixel art games. Their position can still be sub-pixel, but the decimals will not have effect as the position is rounded. This can lead to a crisper appearance at the cost of less smooth movement, especially when :ref:`Camera2D<class_Camera2D>` smoothing is enabled.
 
 \ **Note:** This property is only read when the project starts. To toggle 2D transform snapping at runtime, use :ref:`RenderingServer.viewport_set_snap_2d_transforms_to_pixel<class_RenderingServer_method_viewport_set_snap_2d_transforms_to_pixel>` on the root :ref:`Viewport<class_Viewport>` instead.
 
 \ **Note:** :ref:`Control<class_Control>` nodes are snapped to the nearest pixel by default. This is controlled by :ref:`gui/common/snap_controls_to_pixels<class_ProjectSettings_property_gui/common/snap_controls_to_pixels>`.
+
+\ **Note:** It is not recommended to use this setting together with :ref:`rendering/2d/snap/snap_2d_vertices_to_pixel<class_ProjectSettings_property_rendering/2d/snap/snap_2d_vertices_to_pixel>`, as movement may appear even less smooth. Prefer only enabling this setting instead.
 
 .. rst-class:: classref-item-separator
 
@@ -9405,6 +9429,8 @@ If ``true``, vertices of :ref:`CanvasItem<class_CanvasItem>` nodes will snap to 
 \ **Note:** This property is only read when the project starts. To toggle 2D vertex snapping at runtime, use :ref:`RenderingServer.viewport_set_snap_2d_vertices_to_pixel<class_RenderingServer_method_viewport_set_snap_2d_vertices_to_pixel>` on the root :ref:`Viewport<class_Viewport>` instead.
 
 \ **Note:** :ref:`Control<class_Control>` nodes are snapped to the nearest pixel by default. This is controlled by :ref:`gui/common/snap_controls_to_pixels<class_ProjectSettings_property_gui/common/snap_controls_to_pixels>`.
+
+\ **Note:** It is not recommended to use this setting together with :ref:`rendering/2d/snap/snap_2d_transforms_to_pixel<class_ProjectSettings_property_rendering/2d/snap/snap_2d_transforms_to_pixel>`, as movement may appear even less smooth. Prefer only enabling that setting instead.
 
 .. rst-class:: classref-item-separator
 
@@ -11336,7 +11362,7 @@ If ``true``, the texture importer will import lossless textures using the PNG fo
 
 :ref:`bool<class_bool>` **rendering/textures/vram_compression/import_etc2_astc** = ``false``
 
-If ``true``, the texture importer will import VRAM-compressed textures using the Ericsson Texture Compression 2 algorithm for lower quality textures and normal maps and Adaptable Scalable Texture Compression algorithm for high quality textures (in 4x4 block size).
+If ``true``, the texture importer will import VRAM-compressed textures using the Ericsson Texture Compression 2 algorithm for lower quality textures and normal maps and Adaptable Scalable Texture Compression algorithm for high quality textures (in 4×4 block size).
 
 \ **Note:** This setting is an override. The texture importer will always import the format the host platform needs, even if this is set to ``false``.
 
@@ -11434,16 +11460,16 @@ The texture *must* use a lossless compression format so that colors can be match
 
 ::
 
-    - 1x1 = rgb(0, 0, 0)     - #000000
-    - 1x2 = rgb(0, 85, 0)    - #005500
-    - 2x1 = rgb(85, 0, 0)    - #550000
-    - 2x2 = rgb(85, 85, 0)   - #555500
-    - 2x4 = rgb(85, 170, 0)  - #55aa00
-    - 4x2 = rgb(170, 85, 0)  - #aa5500
-    - 4x4 = rgb(170, 170, 0) - #aaaa00
-    - 4x8 = rgb(170, 255, 0) - #aaff00 - Not supported on most hardware
-    - 8x4 = rgb(255, 170, 0) - #ffaa00 - Not supported on most hardware
-    - 8x8 = rgb(255, 255, 0) - #ffff00 - Not supported on most hardware
+    - 1×1 = rgb(0, 0, 0)     - #000000
+    - 1×2 = rgb(0, 85, 0)    - #005500
+    - 2×1 = rgb(85, 0, 0)    - #550000
+    - 2×2 = rgb(85, 85, 0)   - #555500
+    - 2×4 = rgb(85, 170, 0)  - #55aa00
+    - 4×2 = rgb(170, 85, 0)  - #aa5500
+    - 4×4 = rgb(170, 170, 0) - #aaaa00
+    - 4×8 = rgb(170, 255, 0) - #aaff00 - Not supported on most hardware
+    - 8×4 = rgb(255, 170, 0) - #ffaa00 - Not supported on most hardware
+    - 8×8 = rgb(255, 255, 0) - #ffff00 - Not supported on most hardware
 
 .. rst-class:: classref-item-separator
 
