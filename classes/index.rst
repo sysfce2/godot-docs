@@ -175,6 +175,7 @@ Nodes
     class_optionbutton
     class_panel
     class_panelcontainer
+    class_parallax2d
     class_parallaxbackground
     class_parallaxlayer
     class_path2d
@@ -262,6 +263,7 @@ Nodes
     class_window
     class_worldenvironment
     class_xranchor3d
+    class_xrbodymodifier3d
     class_xrcamera3d
     class_xrcontroller3d
     class_xrfacemodifier3d
@@ -318,6 +320,7 @@ Resources
     class_audioeffecteq21
     class_audioeffecteq6
     class_audioeffectfilter
+    class_audioeffecthardlimiter
     class_audioeffecthighpassfilter
     class_audioeffecthighshelffilter
     class_audioeffectlimiter
@@ -333,11 +336,14 @@ Resources
     class_audioeffectstereoenhance
     class_audiostream
     class_audiostreamgenerator
+    class_audiostreaminteractive
     class_audiostreammicrophone
     class_audiostreammp3
     class_audiostreamoggvorbis
+    class_audiostreamplaylist
     class_audiostreampolyphonic
     class_audiostreamrandomizer
+    class_audiostreamsynchronized
     class_audiostreamwav
     class_basematerial3d
     class_bitmap
@@ -689,9 +695,12 @@ Other objects
     class_audioserver
     class_audiostreamgeneratorplayback
     class_audiostreamplayback
+    class_audiostreamplaybackinteractive
     class_audiostreamplaybackoggvorbis
+    class_audiostreamplaybackplaylist
     class_audiostreamplaybackpolyphonic
     class_audiostreamplaybackresampled
+    class_audiostreamplaybacksynchronized
     class_callbacktweener
     class_camerafeed
     class_cameraserver
@@ -781,6 +790,7 @@ Other objects
     class_multiplayerpeer
     class_multiplayerpeerextension
     class_mutex
+    class_nativemenu
     class_navigationmeshgenerator
     class_navigationpathqueryparameters2d
     class_navigationpathqueryparameters3d
@@ -934,6 +944,7 @@ Other objects
     class_webxrinterface
     class_workerthreadpool
     class_xmlparser
+    class_xrbodytracker
     class_xrfacetracker
     class_xrhandtracker
     class_xrinterface

@@ -73,6 +73,8 @@ Properties
    +-----------------------------------------------------------------------------+-----------------------------------------------------------------------------------+-----------+
    | :ref:`Node<class_Node>`                                                     | :ref:`owner<class_Node_property_owner>`                                           |           |
    +-----------------------------------------------------------------------------+-----------------------------------------------------------------------------------+-----------+
+   | :ref:`PhysicsInterpolationMode<enum_Node_PhysicsInterpolationMode>`         | :ref:`physics_interpolation_mode<class_Node_property_physics_interpolation_mode>` | ``0``     |
+   +-----------------------------------------------------------------------------+-----------------------------------------------------------------------------------+-----------+
    | :ref:`ProcessMode<enum_Node_ProcessMode>`                                   | :ref:`process_mode<class_Node_property_process_mode>`                             | ``0``     |
    +-----------------------------------------------------------------------------+-----------------------------------------------------------------------------------+-----------+
    | :ref:`int<class_int>`                                                       | :ref:`process_physics_priority<class_Node_property_process_physics_priority>`     | ``0``     |
@@ -207,6 +209,10 @@ Methods
    +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                          | :ref:`is_node_ready<class_Node_method_is_node_ready>`\ (\ ) |const|                                                                                                                                                                     |
    +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`bool<class_bool>`                                          | :ref:`is_physics_interpolated<class_Node_method_is_physics_interpolated>`\ (\ ) |const|                                                                                                                                                 |
+   +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`bool<class_bool>`                                          | :ref:`is_physics_interpolated_and_enabled<class_Node_method_is_physics_interpolated_and_enabled>`\ (\ ) |const|                                                                                                                         |
+   +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                          | :ref:`is_physics_processing<class_Node_method_is_physics_processing>`\ (\ ) |const|                                                                                                                                                     |
    +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                          | :ref:`is_physics_processing_internal<class_Node_method_is_physics_processing_internal>`\ (\ ) |const|                                                                                                                                   |
@@ -250,6 +256,8 @@ Methods
    | |void|                                                           | :ref:`replace_by<class_Node_method_replace_by>`\ (\ node\: :ref:`Node<class_Node>`, keep_groups\: :ref:`bool<class_bool>` = false\ )                                                                                                    |
    +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                           | :ref:`request_ready<class_Node_method_request_ready>`\ (\ )                                                                                                                                                                             |
+   +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                           | :ref:`reset_physics_interpolation<class_Node_method_reset_physics_interpolation>`\ (\ )                                                                                                                                                 |
    +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Error<enum_@GlobalScope_Error>`                            | :ref:`rpc<class_Node_method_rpc>`\ (\ method\: :ref:`StringName<class_StringName>`, ...\ ) |vararg|                                                                                                                                     |
    +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -496,7 +504,7 @@ enum **ProcessThreadGroup**:
 
 :ref:`ProcessThreadGroup<enum_Node_ProcessThreadGroup>` **PROCESS_THREAD_GROUP_INHERIT** = ``0``
 
-If the :ref:`process_thread_group<class_Node_property_process_thread_group>` property is sent to this, the node will belong to any parent (or grandparent) node that has a thread group mode that is not inherit. See :ref:`process_thread_group<class_Node_property_process_thread_group>` for more information.
+Process this node based on the thread group mode of the first parent (or grandparent) node that has a thread group mode that is not inherit. See :ref:`process_thread_group<class_Node_property_process_thread_group>` for more information.
 
 .. _class_Node_constant_PROCESS_THREAD_GROUP_MAIN_THREAD:
 
@@ -504,7 +512,7 @@ If the :ref:`process_thread_group<class_Node_property_process_thread_group>` pro
 
 :ref:`ProcessThreadGroup<enum_Node_ProcessThreadGroup>` **PROCESS_THREAD_GROUP_MAIN_THREAD** = ``1``
 
-Process this node (and children nodes set to inherit) on the main thread. See :ref:`process_thread_group<class_Node_property_process_thread_group>` for more information.
+Process this node (and child nodes set to inherit) on the main thread. See :ref:`process_thread_group<class_Node_property_process_thread_group>` for more information.
 
 .. _class_Node_constant_PROCESS_THREAD_GROUP_SUB_THREAD:
 
@@ -512,7 +520,7 @@ Process this node (and children nodes set to inherit) on the main thread. See :r
 
 :ref:`ProcessThreadGroup<enum_Node_ProcessThreadGroup>` **PROCESS_THREAD_GROUP_SUB_THREAD** = ``2``
 
-Process this node (and children nodes set to inherit) on a sub-thread. See :ref:`process_thread_group<class_Node_property_process_thread_group>` for more information.
+Process this node (and child nodes set to inherit) on a sub-thread. See :ref:`process_thread_group<class_Node_property_process_thread_group>` for more information.
 
 .. rst-class:: classref-item-separator
 
@@ -547,6 +555,40 @@ Allows this node to process threaded messages created with :ref:`call_deferred_t
 :ref:`ProcessThreadMessages<enum_Node_ProcessThreadMessages>` **FLAG_PROCESS_THREAD_MESSAGES_ALL** = ``3``
 
 Allows this node to process threaded messages created with :ref:`call_deferred_thread_group<class_Node_method_call_deferred_thread_group>` right before either :ref:`_process<class_Node_private_method__process>` or :ref:`_physics_process<class_Node_private_method__physics_process>` are called.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _enum_Node_PhysicsInterpolationMode:
+
+.. rst-class:: classref-enumeration
+
+enum **PhysicsInterpolationMode**:
+
+.. _class_Node_constant_PHYSICS_INTERPOLATION_MODE_INHERIT:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`PhysicsInterpolationMode<enum_Node_PhysicsInterpolationMode>` **PHYSICS_INTERPOLATION_MODE_INHERIT** = ``0``
+
+Inherits :ref:`physics_interpolation_mode<class_Node_property_physics_interpolation_mode>` from the node's parent. This is the default for any newly created node.
+
+.. _class_Node_constant_PHYSICS_INTERPOLATION_MODE_ON:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`PhysicsInterpolationMode<enum_Node_PhysicsInterpolationMode>` **PHYSICS_INTERPOLATION_MODE_ON** = ``1``
+
+Enables physics interpolation for this node and for children set to :ref:`PHYSICS_INTERPOLATION_MODE_INHERIT<class_Node_constant_PHYSICS_INTERPOLATION_MODE_INHERIT>`. This is the default for the root node.
+
+.. _class_Node_constant_PHYSICS_INTERPOLATION_MODE_OFF:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`PhysicsInterpolationMode<enum_Node_PhysicsInterpolationMode>` **PHYSICS_INTERPOLATION_MODE_OFF** = ``2``
+
+Disables physics interpolation for this node and for children set to :ref:`PHYSICS_INTERPOLATION_MODE_INHERIT<class_Node_constant_PHYSICS_INTERPOLATION_MODE_INHERIT>`.
 
 .. rst-class:: classref-item-separator
 
@@ -614,7 +656,7 @@ The node will not be internal.
 
 :ref:`InternalMode<enum_Node_InternalMode>` **INTERNAL_MODE_FRONT** = ``1``
 
-The node will be placed at the beginning of the parent's children list, before any non-internal sibling.
+The node will be placed at the beginning of the parent's children, before any non-internal sibling.
 
 .. _class_Node_constant_INTERNAL_MODE_BACK:
 
@@ -622,7 +664,7 @@ The node will be placed at the beginning of the parent's children list, before a
 
 :ref:`InternalMode<enum_Node_InternalMode>` **INTERNAL_MODE_BACK** = ``2``
 
-The node will be placed at the end of the parent's children list, after any non-internal sibling.
+The node will be placed at the end of the parent's children, after any non-internal sibling.
 
 .. rst-class:: classref-item-separator
 
@@ -845,6 +887,14 @@ Notification received when the node is disabled. See :ref:`PROCESS_MODE_DISABLED
 
 Notification received when the node is enabled again after being disabled. See :ref:`PROCESS_MODE_DISABLED<class_Node_constant_PROCESS_MODE_DISABLED>`.
 
+.. _class_Node_constant_NOTIFICATION_RESET_PHYSICS_INTERPOLATION:
+
+.. rst-class:: classref-constant
+
+**NOTIFICATION_RESET_PHYSICS_INTERPOLATION** = ``2001``
+
+Notification received when :ref:`reset_physics_interpolation<class_Node_method_reset_physics_interpolation>` is called on the node or its ancestors.
+
 .. _class_Node_constant_NOTIFICATION_EDITOR_PRE_SAVE:
 
 .. rst-class:: classref-constant
@@ -971,7 +1021,17 @@ Implemented only on iOS.
 
 **NOTIFICATION_TRANSLATION_CHANGED** = ``2010``
 
-Notification received when translations may have changed. Can be triggered by the user changing the locale. Can be used to respond to language changes, for example to change the UI strings on the fly. Useful when working with the built-in translation support, like :ref:`Object.tr<class_Object_method_tr>`.
+Notification received when translations may have changed. Can be triggered by the user changing the locale, changing :ref:`auto_translate_mode<class_Node_property_auto_translate_mode>` or when the node enters the scene tree. Can be used to respond to language changes, for example to change the UI strings on the fly. Useful when working with the built-in translation support, like :ref:`Object.tr<class_Object_method_tr>`.
+
+\ **Note:** This notification is received alongside :ref:`NOTIFICATION_ENTER_TREE<class_Node_constant_NOTIFICATION_ENTER_TREE>`, so if you are instantiating a scene, the child nodes will not be initialized yet. You can use it to setup translations for this node, child nodes created from script, or if you want to access child nodes added in the editor, make sure the node is ready using :ref:`is_node_ready<class_Node_method_is_node_ready>`.
+
+::
+
+    func _notification(what):
+        if what == NOTIFICATION_TRANSLATION_CHANGED:
+            if not is_node_ready():
+                await ready # Wait until ready signal.
+            $Label.text = atr("%d Bananas") % banana_counter
 
 .. _class_Node_constant_NOTIFICATION_WM_ABOUT:
 
@@ -1154,6 +1214,25 @@ The owner of this node. The owner must be an ancestor of this node. When packing
 
 ----
 
+.. _class_Node_property_physics_interpolation_mode:
+
+.. rst-class:: classref-property
+
+:ref:`PhysicsInterpolationMode<enum_Node_PhysicsInterpolationMode>` **physics_interpolation_mode** = ``0``
+
+.. rst-class:: classref-property-setget
+
+- |void| **set_physics_interpolation_mode**\ (\ value\: :ref:`PhysicsInterpolationMode<enum_Node_PhysicsInterpolationMode>`\ )
+- :ref:`PhysicsInterpolationMode<enum_Node_PhysicsInterpolationMode>` **get_physics_interpolation_mode**\ (\ )
+
+Allows enabling or disabling physics interpolation per node, offering a finer grain of control than turning physics interpolation on and off globally. See :ref:`ProjectSettings.physics/common/physics_interpolation<class_ProjectSettings_property_physics/common/physics_interpolation>` and :ref:`SceneTree.physics_interpolation<class_SceneTree_property_physics_interpolation>` for the global setting.
+
+\ **Note:** When teleporting a node to a distant position you should temporarily disable interpolation with :ref:`reset_physics_interpolation<class_Node_method_reset_physics_interpolation>`.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_Node_property_process_mode:
 
 .. rst-class:: classref-property
@@ -1222,7 +1301,7 @@ By default, the thread group is :ref:`PROCESS_THREAD_GROUP_INHERIT<class_Node_co
 
 During processing in a sub-thread, accessing most functions in nodes outside the thread group is forbidden (and it will result in an error in debug mode). Use :ref:`Object.call_deferred<class_Object_method_call_deferred>`, :ref:`call_thread_safe<class_Node_method_call_thread_safe>`, :ref:`call_deferred_thread_group<class_Node_method_call_deferred_thread_group>` and the likes in order to communicate from the thread groups to the main thread (or to other thread groups).
 
-To better understand process thread groups, the idea is that any node set to any other value than :ref:`PROCESS_THREAD_GROUP_INHERIT<class_Node_constant_PROCESS_THREAD_GROUP_INHERIT>` will include any children (and grandchildren) nodes set to inherit into its process thread group. this means that the processing of all the nodes in the group will happen together, at the same time as the node including them.
+To better understand process thread groups, the idea is that any node set to any other value than :ref:`PROCESS_THREAD_GROUP_INHERIT<class_Node_constant_PROCESS_THREAD_GROUP_INHERIT>` will include any child (and grandchild) nodes set to inherit into its process thread group. This means that the processing of all the nodes in the group will happen together, at the same time as the node including them.
 
 .. rst-class:: classref-item-separator
 
@@ -1440,7 +1519,7 @@ Usually used for initialization. For even earlier initialization, :ref:`Object._
 
 |void| **_shortcut_input**\ (\ event\: :ref:`InputEvent<class_InputEvent>`\ ) |virtual|
 
-Called when an :ref:`InputEventKey<class_InputEventKey>` or :ref:`InputEventShortcut<class_InputEventShortcut>` hasn't been consumed by :ref:`_input<class_Node_private_method__input>` or any GUI :ref:`Control<class_Control>` item. It is called before :ref:`_unhandled_key_input<class_Node_private_method__unhandled_key_input>` and :ref:`_unhandled_input<class_Node_private_method__unhandled_input>`. The input event propagates up through the node tree until a node consumes it.
+Called when an :ref:`InputEventKey<class_InputEventKey>`, :ref:`InputEventShortcut<class_InputEventShortcut>`, or :ref:`InputEventJoypadButton<class_InputEventJoypadButton>` hasn't been consumed by :ref:`_input<class_Node_private_method__input>` or any GUI :ref:`Control<class_Control>` item. It is called before :ref:`_unhandled_key_input<class_Node_private_method__unhandled_key_input>` and :ref:`_unhandled_input<class_Node_private_method__unhandled_input>`. The input event propagates up through the node tree until a node consumes it.
 
 It is only called if shortcut processing is enabled, which is done automatically if this method is overridden, and can be toggled with :ref:`set_process_shortcut_input<class_Node_method_set_process_shortcut_input>`.
 
@@ -1581,7 +1660,7 @@ If ``persistent`` is ``true``, the group will be stored when saved inside a :ref
 
 :ref:`String<class_String>` **atr**\ (\ message\: :ref:`String<class_String>`, context\: :ref:`StringName<class_StringName>` = ""\ ) |const|
 
-Translates a ``message``, using the translation catalogs configured in the Project Settings. Further ``context`` can be specified to help with the translation.
+Translates a ``message``, using the translation catalogs configured in the Project Settings. Further ``context`` can be specified to help with the translation. Note that most :ref:`Control<class_Control>` nodes automatically translate their strings, so this method is mostly useful for formatted strings or custom drawn text.
 
 This method works the same as :ref:`Object.tr<class_Object_method_tr>`, with the addition of respecting the :ref:`auto_translate_mode<class_Node_property_auto_translate_mode>` state.
 
@@ -2296,6 +2375,36 @@ Returns ``true`` if the node is ready, i.e. it's inside scene tree and all its c
 
 ----
 
+.. _class_Node_method_is_physics_interpolated:
+
+.. rst-class:: classref-method
+
+:ref:`bool<class_bool>` **is_physics_interpolated**\ (\ ) |const|
+
+Returns ``true`` if physics interpolation is enabled for this node (see :ref:`physics_interpolation_mode<class_Node_property_physics_interpolation_mode>`).
+
+\ **Note:** Interpolation will only be active if both the flag is set **and** physics interpolation is enabled within the :ref:`SceneTree<class_SceneTree>`. This can be tested using :ref:`is_physics_interpolated_and_enabled<class_Node_method_is_physics_interpolated_and_enabled>`.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_Node_method_is_physics_interpolated_and_enabled:
+
+.. rst-class:: classref-method
+
+:ref:`bool<class_bool>` **is_physics_interpolated_and_enabled**\ (\ ) |const|
+
+Returns ``true`` if physics interpolation is enabled (see :ref:`physics_interpolation_mode<class_Node_property_physics_interpolation_mode>`) **and** enabled in the :ref:`SceneTree<class_SceneTree>`.
+
+This is a convenience version of :ref:`is_physics_interpolated<class_Node_method_is_physics_interpolated>` that also checks whether physics interpolation is enabled globally.
+
+See :ref:`SceneTree.physics_interpolation<class_SceneTree_property_physics_interpolation>` and :ref:`ProjectSettings.physics/common/physics_interpolation<class_ProjectSettings_property_physics/common/physics_interpolation>`.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_Node_method_is_physics_processing:
 
 .. rst-class:: classref-method
@@ -2597,6 +2706,24 @@ If ``keep_groups`` is ``true``, the ``node`` is added to the same groups that th
 Requests :ref:`_ready<class_Node_private_method__ready>` to be called again the next time the node enters the tree. Does **not** immediately call :ref:`_ready<class_Node_private_method__ready>`.
 
 \ **Note:** This method only affects the current node. If the node's children also need to request ready, this method needs to be called for each one of them. When the node and its children enter the tree again, the order of :ref:`_ready<class_Node_private_method__ready>` callbacks will be the same as normal.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_Node_method_reset_physics_interpolation:
+
+.. rst-class:: classref-method
+
+|void| **reset_physics_interpolation**\ (\ )
+
+When physics interpolation is active, moving a node to a radically different transform (such as placement within a level) can result in a visible glitch as the object is rendered moving from the old to new position over the physics tick.
+
+That glitch can be prevented by calling this method, which temporarily disables interpolation until the physics tick is complete.
+
+The notification :ref:`NOTIFICATION_RESET_PHYSICS_INTERPOLATION<class_Node_constant_NOTIFICATION_RESET_PHYSICS_INTERPOLATION>` will be received by the node and all children recursively.
+
+\ **Note:** This function should be called **after** moving the node, rather than before.
 
 .. rst-class:: classref-item-separator
 
