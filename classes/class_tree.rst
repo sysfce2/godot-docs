@@ -197,7 +197,7 @@ Theme Properties
    +-----------------------------------+------------------------------------------------------------------------------------------+-------------------------------------+
    | :ref:`Color<class_Color>`         | :ref:`font_disabled_color<class_Tree_theme_color_font_disabled_color>`                   | ``Color(0.875, 0.875, 0.875, 0.5)`` |
    +-----------------------------------+------------------------------------------------------------------------------------------+-------------------------------------+
-   | :ref:`Color<class_Color>`         | :ref:`font_outline_color<class_Tree_theme_color_font_outline_color>`                     | ``Color(1, 1, 1, 1)``               |
+   | :ref:`Color<class_Color>`         | :ref:`font_outline_color<class_Tree_theme_color_font_outline_color>`                     | ``Color(0, 0, 0, 1)``               |
    +-----------------------------------+------------------------------------------------------------------------------------------+-------------------------------------+
    | :ref:`Color<class_Color>`         | :ref:`font_selected_color<class_Tree_theme_color_font_selected_color>`                   | ``Color(1, 1, 1, 1)``               |
    +-----------------------------------+------------------------------------------------------------------------------------------+-------------------------------------+
@@ -399,7 +399,7 @@ Emitted when a cell with the :ref:`TreeItem.CELL_MODE_CUSTOM<class_TreeItem_cons
 
 .. rst-class:: classref-signal
 
-**empty_clicked**\ (\ position\: :ref:`Vector2<class_Vector2>`, mouse_button_index\: :ref:`int<class_int>`\ )
+**empty_clicked**\ (\ click_position\: :ref:`Vector2<class_Vector2>`, mouse_button_index\: :ref:`int<class_int>`\ )
 
 Emitted when a mouse button is clicked in the empty space of the tree.
 
@@ -459,7 +459,7 @@ Emitted when an item's icon is double-clicked. For a signal that emits when any 
 
 .. rst-class:: classref-signal
 
-**item_mouse_selected**\ (\ position\: :ref:`Vector2<class_Vector2>`, mouse_button_index\: :ref:`int<class_int>`\ )
+**item_mouse_selected**\ (\ mouse_position\: :ref:`Vector2<class_Vector2>`, mouse_button_index\: :ref:`int<class_int>`\ )
 
 Emitted when an item is selected with a mouse button.
 
@@ -1368,7 +1368,7 @@ Text :ref:`Color<class_Color>` for a :ref:`TreeItem.CELL_MODE_CHECK<class_TreeIt
 
 .. rst-class:: classref-themeproperty
 
-:ref:`Color<class_Color>` **font_outline_color** = ``Color(1, 1, 1, 1)``
+:ref:`Color<class_Color>` **font_outline_color** = ``Color(0, 0, 0, 1)``
 
 The tint of text outline of the item.
 
