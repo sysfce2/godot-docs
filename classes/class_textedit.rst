@@ -55,6 +55,8 @@ Properties
    +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
    | :ref:`CaretType<enum_TextEdit_CaretType>`                         | :ref:`caret_type<class_TextEdit_property_caret_type>`                                                       | ``0``                                                                               |
    +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
+   | :ref:`bool<class_bool>`                                           | clip_contents                                                                                               | ``true`` (overrides :ref:`Control<class_Control_property_clip_contents>`)           |
+   +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                           | :ref:`context_menu_enabled<class_TextEdit_property_context_menu_enabled>`                                   | ``true``                                                                            |
    +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                           | :ref:`deselect_on_focus_loss_enabled<class_TextEdit_property_deselect_on_focus_loss_enabled>`               | ``true``                                                                            |
@@ -74,6 +76,8 @@ Properties
    | :ref:`bool<class_bool>`                                           | :ref:`highlight_all_occurrences<class_TextEdit_property_highlight_all_occurrences>`                         | ``false``                                                                           |
    +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                           | :ref:`highlight_current_line<class_TextEdit_property_highlight_current_line>`                               | ``false``                                                                           |
+   +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
+   | :ref:`bool<class_bool>`                                           | :ref:`indent_wrapped_lines<class_TextEdit_property_indent_wrapped_lines>`                                   | ``false``                                                                           |
    +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
    | :ref:`String<class_String>`                                       | :ref:`language<class_TextEdit_property_language>`                                                           | ``""``                                                                              |
    +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
@@ -401,6 +405,8 @@ Methods
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                            | :ref:`set_tooltip_request_func<class_TextEdit_method_set_tooltip_request_func>`\ (\ callback\: :ref:`Callable<class_Callable>`\ )                                                                                                                                                  |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                            | :ref:`skip_selection_for_next_occurrence<class_TextEdit_method_skip_selection_for_next_occurrence>`\ (\ )                                                                                                                                                                          |
+   +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                            | :ref:`start_action<class_TextEdit_method_start_action>`\ (\ action\: :ref:`EditAction<enum_TextEdit_EditAction>`\ )                                                                                                                                                                |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                            | :ref:`swap_lines<class_TextEdit_method_swap_lines>`\ (\ from_line\: :ref:`int<class_int>`, to_line\: :ref:`int<class_int>`\ )                                                                                                                                                      |
@@ -429,7 +435,7 @@ Theme Properties
    +-----------------------------------+------------------------------------------------------------------------------------------+-------------------------------------+
    | :ref:`Color<class_Color>`         | :ref:`font_color<class_TextEdit_theme_color_font_color>`                                 | ``Color(0.875, 0.875, 0.875, 1)``   |
    +-----------------------------------+------------------------------------------------------------------------------------------+-------------------------------------+
-   | :ref:`Color<class_Color>`         | :ref:`font_outline_color<class_TextEdit_theme_color_font_outline_color>`                 | ``Color(1, 1, 1, 1)``               |
+   | :ref:`Color<class_Color>`         | :ref:`font_outline_color<class_TextEdit_theme_color_font_outline_color>`                 | ``Color(0, 0, 0, 1)``               |
    +-----------------------------------+------------------------------------------------------------------------------------------+-------------------------------------+
    | :ref:`Color<class_Color>`         | :ref:`font_placeholder_color<class_TextEdit_theme_color_font_placeholder_color>`         | ``Color(0.875, 0.875, 0.875, 0.6)`` |
    +-----------------------------------+------------------------------------------------------------------------------------------+-------------------------------------+
@@ -1014,7 +1020,7 @@ enum **GutterType**:
 
 :ref:`GutterType<enum_TextEdit_GutterType>` **GUTTER_TYPE_STRING** = ``0``
 
-Draw a string.
+When a gutter is set to string using :ref:`set_gutter_type<class_TextEdit_method_set_gutter_type>`, it is used to contain text set via the :ref:`set_line_gutter_text<class_TextEdit_method_set_line_gutter_text>` method.
 
 .. _class_TextEdit_constant_GUTTER_TYPE_ICON:
 
@@ -1022,7 +1028,7 @@ Draw a string.
 
 :ref:`GutterType<enum_TextEdit_GutterType>` **GUTTER_TYPE_ICON** = ``1``
 
-Draw an icon.
+When a gutter is set to icon using :ref:`set_gutter_type<class_TextEdit_method_set_gutter_type>`, it is used to contain an icon set via the :ref:`set_line_gutter_icon<class_TextEdit_method_set_line_gutter_icon>` method.
 
 .. _class_TextEdit_constant_GUTTER_TYPE_CUSTOM:
 
@@ -1030,7 +1036,7 @@ Draw an icon.
 
 :ref:`GutterType<enum_TextEdit_GutterType>` **GUTTER_TYPE_CUSTOM** = ``2``
 
-Custom draw.
+When a gutter is set to custom using :ref:`set_gutter_type<class_TextEdit_method_set_gutter_type>`, it is used to contain custom visuals controlled by a callback method set via the :ref:`set_gutter_custom_draw<class_TextEdit_method_set_gutter_custom_draw>` method.
 
 .. rst-class:: classref-section-separator
 
@@ -1329,6 +1335,23 @@ If ``true``, all occurrences of the selected text will be highlighted.
 - :ref:`bool<class_bool>` **is_highlight_current_line_enabled**\ (\ )
 
 If ``true``, the line containing the cursor is highlighted.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_TextEdit_property_indent_wrapped_lines:
+
+.. rst-class:: classref-property
+
+:ref:`bool<class_bool>` **indent_wrapped_lines** = ``false``
+
+.. rst-class:: classref-property-setget
+
+- |void| **set_indent_wrapped_lines**\ (\ value\: :ref:`bool<class_bool>`\ )
+- :ref:`bool<class_bool>` **is_indent_wrapped_lines**\ (\ )
+
+If ``true``, all wrapped lines are indented to the same amount as the unwrapped line.
 
 .. rst-class:: classref-item-separator
 
@@ -2111,7 +2134,7 @@ Returns the name of the gutter at the given index.
 
 :ref:`GutterType<enum_TextEdit_GutterType>` **get_gutter_type**\ (\ gutter\: :ref:`int<class_int>`\ ) |const|
 
-Returns the type of the gutter at the given index.
+Returns the type of the gutter at the given index. Gutters can contain icons, text, or custom visuals. See :ref:`GutterType<enum_TextEdit_GutterType>` for options.
 
 .. rst-class:: classref-item-separator
 
@@ -2243,7 +2266,7 @@ Returns the number of lines in the text.
 
 :ref:`Texture2D<class_Texture2D>` **get_line_gutter_icon**\ (\ line\: :ref:`int<class_int>`, gutter\: :ref:`int<class_int>`\ ) |const|
 
-Returns the icon currently in ``gutter`` at ``line``.
+Returns the icon currently in ``gutter`` at ``line``. This only works when the gutter type is :ref:`GUTTER_TYPE_ICON<class_TextEdit_constant_GUTTER_TYPE_ICON>` (see :ref:`set_gutter_type<class_TextEdit_method_set_gutter_type>`).
 
 .. rst-class:: classref-item-separator
 
@@ -2279,7 +2302,7 @@ Returns the metadata currently in ``gutter`` at ``line``.
 
 :ref:`String<class_String>` **get_line_gutter_text**\ (\ line\: :ref:`int<class_int>`, gutter\: :ref:`int<class_int>`\ ) |const|
 
-Returns the text currently in ``gutter`` at ``line``.
+Returns the text currently in ``gutter`` at ``line``. This only works when the gutter type is :ref:`GUTTER_TYPE_STRING<class_TextEdit_constant_GUTTER_TYPE_STRING>` (see :ref:`set_gutter_type<class_TextEdit_method_set_gutter_type>`).
 
 .. rst-class:: classref-item-separator
 
@@ -3169,7 +3192,7 @@ Sets the gutter as clickable. This will change the mouse cursor to a pointing ha
 
 |void| **set_gutter_custom_draw**\ (\ column\: :ref:`int<class_int>`, draw_callback\: :ref:`Callable<class_Callable>`\ )
 
-Set a custom draw method for the gutter. The callback method must take the following args: ``line: int, gutter: int, Area: Rect2``.
+Set a custom draw method for the gutter. The callback method must take the following args: ``line: int, gutter: int, Area: Rect2``. This only works when the gutter type is :ref:`GUTTER_TYPE_CUSTOM<class_TextEdit_constant_GUTTER_TYPE_CUSTOM>` (see :ref:`set_gutter_type<class_TextEdit_method_set_gutter_type>`).
 
 .. rst-class:: classref-item-separator
 
@@ -3217,7 +3240,7 @@ Sets the gutter to overwritable. See :ref:`merge_gutters<class_TextEdit_method_m
 
 |void| **set_gutter_type**\ (\ gutter\: :ref:`int<class_int>`, type\: :ref:`GutterType<enum_TextEdit_GutterType>`\ )
 
-Sets the type of gutter.
+Sets the type of gutter. Gutters can contain icons, text, or custom visuals. See :ref:`GutterType<enum_TextEdit_GutterType>` for options.
 
 .. rst-class:: classref-item-separator
 
@@ -3313,7 +3336,7 @@ If ``clickable`` is ``true``, makes the ``gutter`` on ``line`` clickable. See :r
 
 |void| **set_line_gutter_icon**\ (\ line\: :ref:`int<class_int>`, gutter\: :ref:`int<class_int>`, icon\: :ref:`Texture2D<class_Texture2D>`\ )
 
-Sets the icon for ``gutter`` on ``line`` to ``icon``.
+Sets the icon for ``gutter`` on ``line`` to ``icon``. This only works when the gutter type is :ref:`GUTTER_TYPE_ICON<class_TextEdit_constant_GUTTER_TYPE_ICON>` (see :ref:`set_gutter_type<class_TextEdit_method_set_gutter_type>`).
 
 .. rst-class:: classref-item-separator
 
@@ -3349,7 +3372,7 @@ Sets the metadata for ``gutter`` on ``line`` to ``metadata``.
 
 |void| **set_line_gutter_text**\ (\ line\: :ref:`int<class_int>`, gutter\: :ref:`int<class_int>`, text\: :ref:`String<class_String>`\ )
 
-Sets the text for ``gutter`` on ``line`` to ``text``.
+Sets the text for ``gutter`` on ``line`` to ``text``. This only works when the gutter type is :ref:`GUTTER_TYPE_STRING<class_TextEdit_constant_GUTTER_TYPE_STRING>` (see :ref:`set_gutter_type<class_TextEdit_method_set_gutter_type>`).
 
 .. rst-class:: classref-item-separator
 
@@ -3422,6 +3445,18 @@ Sets the tab size for the **TextEdit** to use.
 |void| **set_tooltip_request_func**\ (\ callback\: :ref:`Callable<class_Callable>`\ )
 
 Provide custom tooltip text. The callback method must take the following args: ``hovered_word: String``.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_TextEdit_method_skip_selection_for_next_occurrence:
+
+.. rst-class:: classref-method
+
+|void| **skip_selection_for_next_occurrence**\ (\ )
+
+Moves a selection and a caret for the next occurrence of the current selection. If there is no active selection, moves to the next occurrence of the word under caret.
 
 .. rst-class:: classref-item-separator
 
@@ -3546,7 +3581,7 @@ Sets the font :ref:`Color<class_Color>`.
 
 .. rst-class:: classref-themeproperty
 
-:ref:`Color<class_Color>` **font_outline_color** = ``Color(1, 1, 1, 1)``
+:ref:`Color<class_Color>` **font_outline_color** = ``Color(0, 0, 0, 1)``
 
 The tint of text outline of the **TextEdit**.
 

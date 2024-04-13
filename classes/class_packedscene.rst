@@ -106,7 +106,7 @@ Can be used to save a node to a file. When saving, the node as well as all the n
 Tutorials
 ---------
 
-- `2D Role Playing Game Demo <https://godotengine.org/asset-library/asset/520>`__
+- `2D Role Playing Game (RPG) Demo <https://godotengine.org/asset-library/asset/2729>`__
 
 .. rst-class:: classref-reftable-group
 
@@ -208,7 +208,7 @@ Property Descriptions
 
 A dictionary representation of the scene contents.
 
-Available keys include "rnames" and "variants" for resources, "node_count", "nodes", "node_paths" for nodes, "editable_instances" for base scene children overrides, "conn_count" and "conns" for signal connections, and "version" for the format style of the PackedScene.
+Available keys include "rnames" and "variants" for resources, "node_count", "nodes", "node_paths" for nodes, "editable_instances" for paths to overridden nodes, "conn_count" and "conns" for signal connections, and "version" for the format style of the PackedScene.
 
 .. rst-class:: classref-section-separator
 

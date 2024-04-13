@@ -80,7 +80,7 @@ If ``bind_address`` is set to ``"*"`` (default), the peer will be bound on all a
 
 If ``bind_address`` is set to ``"0.0.0.0"`` (for IPv4) or ``"::"`` (for IPv6), the peer will be bound to all available addresses matching that IP type.
 
-If ``bind_address`` is set to any valid address (e.g. ``"192.168.1.101"``, ``"::1"``, etc), the peer will only be bound to the interface with that addresses (or fail if no interface with the given address exists).
+If ``bind_address`` is set to any valid address (e.g. ``"192.168.1.101"``, ``"::1"``, etc.), the peer will only be bound to the interface with that address (or fail if no interface with the given address exists).
 
 .. rst-class:: classref-item-separator
 
@@ -256,7 +256,7 @@ Waits for a packet to arrive on the bound address. See :ref:`bind<class_PacketPe
 
  .. code-tab:: csharp
 
-    var socket = new PacketPeerUDP();
+    var socket = new PacketPeerUdp();
     // Server
     socket.SetDestAddress("127.0.0.1", 789);
     socket.PutPacket("Time to stop".ToAsciiBuffer());
