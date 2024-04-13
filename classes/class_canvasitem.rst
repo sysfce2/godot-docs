@@ -38,7 +38,7 @@ Tutorials
 
 - :doc:`Custom drawing in 2D <../tutorials/2d/custom_drawing_in_2d>`
 
-- `Audio Spectrum Demo <https://godotengine.org/asset-library/asset/528>`__
+- `Audio Spectrum Visualizer Demo <https://godotengine.org/asset-library/asset/2762>`__
 
 .. rst-class:: classref-reftable-group
 
@@ -388,7 +388,7 @@ Texture will repeat normally.
 
 :ref:`TextureRepeat<enum_CanvasItem_TextureRepeat>` **TEXTURE_REPEAT_MIRROR** = ``3``
 
-Texture will repeat in a 2x2 tiled mode, where elements at even positions are mirrored.
+Texture will repeat in a 2×2 tiled mode, where elements at even positions are mirrored.
 
 .. _class_CanvasItem_constant_TEXTURE_REPEAT_MAX:
 
@@ -525,7 +525,7 @@ Property Descriptions
 - |void| **set_clip_children_mode**\ (\ value\: :ref:`ClipChildrenMode<enum_CanvasItem_ClipChildrenMode>`\ )
 - :ref:`ClipChildrenMode<enum_CanvasItem_ClipChildrenMode>` **get_clip_children_mode**\ (\ )
 
-Allows the current node to clip children nodes, essentially acting as a mask.
+Allows the current node to clip child nodes, essentially acting as a mask.
 
 .. rst-class:: classref-item-separator
 
@@ -733,9 +733,11 @@ If ``true``, this **CanvasItem** is drawn. The node is only visible if all of it
 - |void| **set_y_sort_enabled**\ (\ value\: :ref:`bool<class_bool>`\ )
 - :ref:`bool<class_bool>` **is_y_sort_enabled**\ (\ )
 
-If ``true``, this **CanvasItem** and its **CanvasItem** child nodes are sorted according to the Y position. Nodes with a lower Y position are drawn before those with a higher Y position. If ``false``, Y-sorting is disabled.
+If ``true``, this and child **CanvasItem** nodes with a lower Y position are rendered in front of nodes with a higher Y position. If ``false``, this and child **CanvasItem** nodes are rendered normally in scene tree order.
 
-You can nest nodes with Y-sorting. Child Y-sorted nodes are sorted in the same space as the parent Y-sort. This feature allows you to organize a scene better or divide it into multiple ones without changing your scene tree.
+With Y-sorting enabled on a parent node ('A') but disabled on a child node ('B'), the child node ('B') is sorted but its children ('C1', 'C2', etc) render together on the same Y position as the child node 'B'. This allows you to organize the render order of a scene without changing the scene tree.
+
+Nodes sort relative to each other only if they are on the same :ref:`z_index<class_CanvasItem_property_z_index>`.
 
 .. rst-class:: classref-item-separator
 
@@ -769,7 +771,7 @@ If ``true``, the node's Z index is relative to its parent's Z index. If this nod
 - |void| **set_z_index**\ (\ value\: :ref:`int<class_int>`\ )
 - :ref:`int<class_int>` **get_z_index**\ (\ )
 
-Z index. Controls the order in which the nodes render. A node with a higher Z index will display in front of others. Must be between :ref:`RenderingServer.CANVAS_ITEM_Z_MIN<class_RenderingServer_constant_CANVAS_ITEM_Z_MIN>` and :ref:`RenderingServer.CANVAS_ITEM_Z_MAX<class_RenderingServer_constant_CANVAS_ITEM_Z_MAX>` (inclusive).
+Controls the order in which the nodes render. A node with a higher Z index will display in front of others. Must be between :ref:`RenderingServer.CANVAS_ITEM_Z_MIN<class_RenderingServer_constant_CANVAS_ITEM_Z_MIN>` and :ref:`RenderingServer.CANVAS_ITEM_Z_MAX<class_RenderingServer_constant_CANVAS_ITEM_Z_MAX>` (inclusive).
 
 \ **Note:** Changing the Z index of a :ref:`Control<class_Control>` only affects the drawing order, not the order in which input events are handled. This can be useful to implement certain UI animations, e.g. a menu where hovered items are scaled and should overlap others.
 
@@ -1484,7 +1486,7 @@ Transformations issued by ``event``'s inputs are applied in local space instead 
 
 Moves this node to display on top of its siblings.
 
-Internally, the node is moved to the bottom of parent's children list. The method has no effect on nodes without a parent.
+Internally, the node is moved to the bottom of parent's child list. The method has no effect on nodes without a parent.
 
 .. rst-class:: classref-item-separator
 
