@@ -10,7 +10,7 @@
 Vector3
 =======
 
-A 3D vector using floating point coordinates.
+A 3D vector using floating-point coordinates.
 
 .. rst-class:: classref-introduction-group
 
@@ -38,7 +38,7 @@ Tutorials
 
 - `3Blue1Brown Essence of Linear Algebra <https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab>`__
 
-- `Matrix Transform Demo <https://godotengine.org/asset-library/asset/584>`__
+- `Matrix Transform Demo <https://godotengine.org/asset-library/asset/2787>`__
 
 - `All 3D Demos <https://github.com/godotengine/godot-demo-projects/tree/master/3d>`__
 
@@ -153,7 +153,7 @@ Methods
    +-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Vector3<class_Vector3>` | :ref:`project<class_Vector3_method_project>`\ (\ b\: :ref:`Vector3<class_Vector3>`\ ) |const|                                                                                                                                                                                                                                                                    |
    +-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | :ref:`Vector3<class_Vector3>` | :ref:`reflect<class_Vector3_method_reflect>`\ (\ n\: :ref:`Vector3<class_Vector3>`\ ) |const|                                                                                                                                                                                                                                                                    |
+   | :ref:`Vector3<class_Vector3>` | :ref:`reflect<class_Vector3_method_reflect>`\ (\ direction\: :ref:`Vector3<class_Vector3>`\ ) |const|                                                                                                                                                                                                                                                            |
    +-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Vector3<class_Vector3>` | :ref:`rotated<class_Vector3_method_rotated>`\ (\ axis\: :ref:`Vector3<class_Vector3>`, angle\: :ref:`float<class_float>`\ ) |const|                                                                                                                                                                                                                              |
    +-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -524,7 +524,9 @@ Returns the point at the given ``t`` on the `Bézier curve <https://en.wikipedia
 
 :ref:`Vector3<class_Vector3>` **bounce**\ (\ n\: :ref:`Vector3<class_Vector3>`\ ) |const|
 
-Returns the vector "bounced off" from a plane defined by the given normal.
+Returns the vector "bounced off" from a plane defined by the given normal ``n``.
+
+\ **Note:** :ref:`bounce<class_Vector3_method_bounce>` performs the operation that most engines and frameworks call ``reflect()``.
 
 .. rst-class:: classref-item-separator
 
@@ -561,6 +563,8 @@ Returns a new vector with all components clamped between the components of ``min
 :ref:`Vector3<class_Vector3>` **cross**\ (\ with\: :ref:`Vector3<class_Vector3>`\ ) |const|
 
 Returns the cross product of this vector and ``with``.
+
+This returns a vector perpendicular to both this and ``with``, which would be the normal vector of the plane defined by the two vectors. As there are two such vectors, in opposite directions, this method returns the vector defined by a right-handed coordinate system. If the two vectors are parallel this returns an empty vector, making it useful for testing if two vectors are parallel.
 
 .. rst-class:: classref-item-separator
 
@@ -892,7 +896,9 @@ Returns a vector composed of the :ref:`@GlobalScope.fposmod<class_@GlobalScope_m
 
 :ref:`Vector3<class_Vector3>` **project**\ (\ b\: :ref:`Vector3<class_Vector3>`\ ) |const|
 
-Returns the result of projecting the vector onto the given vector ``b``.
+Returns a new vector resulting from projecting this vector onto the given vector ``b``. The resulting new vector is parallel to ``b``. See also :ref:`slide<class_Vector3_method_slide>`.
+
+\ **Note:** If the vector ``b`` is a zero vector, the components of the resulting new vector will be :ref:`@GDScript.NAN<class_@GDScript_constant_NAN>`.
 
 .. rst-class:: classref-item-separator
 
@@ -902,9 +908,11 @@ Returns the result of projecting the vector onto the given vector ``b``.
 
 .. rst-class:: classref-method
 
-:ref:`Vector3<class_Vector3>` **reflect**\ (\ n\: :ref:`Vector3<class_Vector3>`\ ) |const|
+:ref:`Vector3<class_Vector3>` **reflect**\ (\ direction\: :ref:`Vector3<class_Vector3>`\ ) |const|
 
-Returns the result of reflecting the vector from a plane defined by the given normal ``n``.
+Returns the result of reflecting the vector from a plane defined by the given direction vector ``direction``.
+
+\ **Note:** :ref:`reflect<class_Vector3_method_reflect>` differs from what other engines and frameworks call ``reflect()``. In other engines, ``reflect()`` takes a normal direction which is a direction perpendicular to the plane. In Godot, you specify a direction parallel to the plane. See also :ref:`bounce<class_Vector3_method_bounce>` which does what most engines call ``reflect()``.
 
 .. rst-class:: classref-item-separator
 
@@ -978,7 +986,9 @@ This method also handles interpolating the lengths if the input vectors have dif
 
 :ref:`Vector3<class_Vector3>` **slide**\ (\ n\: :ref:`Vector3<class_Vector3>`\ ) |const|
 
-Returns a new vector slid along a plane defined by the given normal.
+Returns a new vector resulting from sliding this vector along a plane with normal ``n``. The resulting new vector is perpendicular to ``n``, and is equivalent to this vector minus its projection on ``n``. See also :ref:`project<class_Vector3_method_project>`.
+
+\ **Note:** The vector ``n`` must be normalized. See also :ref:`normalized<class_Vector3_method_normalized>`.
 
 .. rst-class:: classref-item-separator
 
