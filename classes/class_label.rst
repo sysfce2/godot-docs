@@ -29,7 +29,7 @@ A control for displaying plain text. It gives you control over the horizontal an
 Tutorials
 ---------
 
-- `2D Dodge The Creeps Demo <https://godotengine.org/asset-library/asset/515>`__
+- `2D Dodge The Creeps Demo <https://godotengine.org/asset-library/asset/2712>`__
 
 .. rst-class:: classref-reftable-group
 
@@ -116,7 +116,7 @@ Theme Properties
    +---------------------------------+----------------------------------------------------------------------------+-----------------------+
    | :ref:`Color<class_Color>`       | :ref:`font_color<class_Label_theme_color_font_color>`                      | ``Color(1, 1, 1, 1)`` |
    +---------------------------------+----------------------------------------------------------------------------+-----------------------+
-   | :ref:`Color<class_Color>`       | :ref:`font_outline_color<class_Label_theme_color_font_outline_color>`      | ``Color(1, 1, 1, 1)`` |
+   | :ref:`Color<class_Color>`       | :ref:`font_outline_color<class_Label_theme_color_font_outline_color>`      | ``Color(0, 0, 0, 1)`` |
    +---------------------------------+----------------------------------------------------------------------------+-----------------------+
    | :ref:`Color<class_Color>`       | :ref:`font_shadow_color<class_Label_theme_color_font_shadow_color>`        | ``Color(0, 0, 0, 0)`` |
    +---------------------------------+----------------------------------------------------------------------------+-----------------------+
@@ -345,6 +345,8 @@ Set additional options for BiDi override.
 - :ref:`PackedFloat32Array<class_PackedFloat32Array>` **get_tab_stops**\ (\ )
 
 Aligns text to the given tab-stops.
+
+**Note:** The returned array is *copied* and any changes to it will not update the original property value. See :ref:`PackedFloat32Array<class_PackedFloat32Array>` for more details.
 
 .. rst-class:: classref-item-separator
 
@@ -580,7 +582,7 @@ Default text :ref:`Color<class_Color>` of the **Label**.
 
 .. rst-class:: classref-themeproperty
 
-:ref:`Color<class_Color>` **font_outline_color** = ``Color(1, 1, 1, 1)``
+:ref:`Color<class_Color>` **font_outline_color** = ``Color(0, 0, 0, 1)``
 
 The color of text outline.
 
