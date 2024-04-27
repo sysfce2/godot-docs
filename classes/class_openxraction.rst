@@ -19,7 +19,7 @@ An OpenXR action.
 Description
 -----------
 
-This resource defines an OpenXR action. Actions can be used both for inputs (buttons/joystick/trigger/etc) and outputs (haptics).
+This resource defines an OpenXR action. Actions can be used both for inputs (buttons, joysticks, triggers, etc.) and outputs (haptics).
 
 OpenXR performs automatic conversion between action type and input type whenever possible. An analog trigger bound to a boolean action will thus return ``false`` if the trigger is depressed and ``true`` if pressed fully.
 
@@ -149,6 +149,8 @@ The localized description of this action.
 - :ref:`PackedStringArray<class_PackedStringArray>` **get_toplevel_paths**\ (\ )
 
 A collections of toplevel paths to which this action can be bound.
+
+**Note:** The returned array is *copied* and any changes to it will not update the original property value. See :ref:`PackedStringArray<class_PackedStringArray>` for more details.
 
 .. |virtual| replace:: :abbr:`virtual (This method should typically be overridden by the user to have any effect.)`
 .. |const| replace:: :abbr:`const (This method has no side effects. It doesn't modify any of the instance's member variables.)`
