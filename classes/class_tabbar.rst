@@ -96,6 +96,8 @@ Methods
    +--------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`String<class_String>`                      | :ref:`get_tab_title<class_TabBar_method_get_tab_title>`\ (\ tab_idx\: :ref:`int<class_int>`\ ) |const|                                                                         |
    +--------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`String<class_String>`                      | :ref:`get_tab_tooltip<class_TabBar_method_get_tab_tooltip>`\ (\ tab_idx\: :ref:`int<class_int>`\ ) |const|                                                                     |
+   +--------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                          | :ref:`is_tab_disabled<class_TabBar_method_is_tab_disabled>`\ (\ tab_idx\: :ref:`int<class_int>`\ ) |const|                                                                     |
    +--------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                          | :ref:`is_tab_hidden<class_TabBar_method_is_tab_hidden>`\ (\ tab_idx\: :ref:`int<class_int>`\ ) |const|                                                                         |
@@ -126,6 +128,8 @@ Methods
    +--------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                           | :ref:`set_tab_title<class_TabBar_method_set_tab_title>`\ (\ tab_idx\: :ref:`int<class_int>`, title\: :ref:`String<class_String>`\ )                                            |
    +--------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                           | :ref:`set_tab_tooltip<class_TabBar_method_set_tab_tooltip>`\ (\ tab_idx\: :ref:`int<class_int>`, tooltip\: :ref:`String<class_String>`\ )                                      |
+   +--------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 .. rst-class:: classref-reftable-group
 
@@ -142,7 +146,7 @@ Theme Properties
    +-----------------------------------+------------------------------------------------------------------------------+-------------------------------------+
    | :ref:`Color<class_Color>`         | :ref:`font_hovered_color<class_TabBar_theme_color_font_hovered_color>`       | ``Color(0.95, 0.95, 0.95, 1)``      |
    +-----------------------------------+------------------------------------------------------------------------------+-------------------------------------+
-   | :ref:`Color<class_Color>`         | :ref:`font_outline_color<class_TabBar_theme_color_font_outline_color>`       | ``Color(1, 1, 1, 1)``               |
+   | :ref:`Color<class_Color>`         | :ref:`font_outline_color<class_TabBar_theme_color_font_outline_color>`       | ``Color(0, 0, 0, 1)``               |
    +-----------------------------------+------------------------------------------------------------------------------+-------------------------------------+
    | :ref:`Color<class_Color>`         | :ref:`font_selected_color<class_TabBar_theme_color_font_selected_color>`     | ``Color(0.95, 0.95, 0.95, 1)``      |
    +-----------------------------------+------------------------------------------------------------------------------+-------------------------------------+
@@ -790,6 +794,18 @@ Returns the title of the tab at index ``tab_idx``.
 
 ----
 
+.. _class_TabBar_method_get_tab_tooltip:
+
+.. rst-class:: classref-method
+
+:ref:`String<class_String>` **get_tab_tooltip**\ (\ tab_idx\: :ref:`int<class_int>`\ ) |const|
+
+Returns the tooltip text of the tab at index ``tab_idx``.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_TabBar_method_is_tab_disabled:
 
 .. rst-class:: classref-method
@@ -966,6 +982,20 @@ Sets tab title base writing direction.
 
 Sets a ``title`` for the tab at index ``tab_idx``.
 
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_TabBar_method_set_tab_tooltip:
+
+.. rst-class:: classref-method
+
+|void| **set_tab_tooltip**\ (\ tab_idx\: :ref:`int<class_int>`, tooltip\: :ref:`String<class_String>`\ )
+
+Sets a ``tooltip`` for tab at index ``tab_idx``.
+
+\ **Note:** By default, if the ``tooltip`` is empty and the tab text is truncated (not all characters fit into the tab), the title will be displayed as a tooltip. To hide the tooltip, assign ``" "`` as the ``tooltip`` text.
+
 .. rst-class:: classref-section-separator
 
 ----
@@ -1015,7 +1045,7 @@ Font color of the currently hovered tab. Does not apply to the selected tab.
 
 .. rst-class:: classref-themeproperty
 
-:ref:`Color<class_Color>` **font_outline_color** = ``Color(1, 1, 1, 1)``
+:ref:`Color<class_Color>` **font_outline_color** = ``Color(0, 0, 0, 1)``
 
 The tint of text outline of the tab name.
 
