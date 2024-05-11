@@ -36,9 +36,9 @@ Tutorials
 
 - :doc:`BBCode in RichTextLabel <../tutorials/ui/bbcode_in_richtextlabel>`
 
-- `GUI Rich Text/BBcode Demo <https://godotengine.org/asset-library/asset/132>`__
+- `Rich Text Label with BBCode Demo <https://godotengine.org/asset-library/asset/2774>`__
 
-- `OS Test Demo <https://godotengine.org/asset-library/asset/677>`__
+- `Operating System Testing Demo <https://godotengine.org/asset-library/asset/2789>`__
 
 .. rst-class:: classref-reftable-group
 
@@ -155,6 +155,8 @@ Methods
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                              | :ref:`install_effect<class_RichTextLabel_method_install_effect>`\ (\ effect\: :ref:`Variant<class_Variant>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`bool<class_bool>`             | :ref:`invalidate_paragraph<class_RichTextLabel_method_invalidate_paragraph>`\ (\ paragraph\: :ref:`int<class_int>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+   +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`             | :ref:`is_menu_visible<class_RichTextLabel_method_is_menu_visible>`\ (\ ) |const|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`             | :ref:`is_ready<class_RichTextLabel_method_is_ready>`\ (\ ) |const|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
@@ -205,7 +207,7 @@ Methods
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                              | :ref:`push_list<class_RichTextLabel_method_push_list>`\ (\ level\: :ref:`int<class_int>`, type\: :ref:`ListType<enum_RichTextLabel_ListType>`, capitalize\: :ref:`bool<class_bool>`, bullet\: :ref:`String<class_String>` = "•"\ )                                                                                                                                                                                                                                                                                                                                                                                                            |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | |void|                              | :ref:`push_meta<class_RichTextLabel_method_push_meta>`\ (\ data\: :ref:`Variant<class_Variant>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+   | |void|                              | :ref:`push_meta<class_RichTextLabel_method_push_meta>`\ (\ data\: :ref:`Variant<class_Variant>`, underline_mode\: :ref:`MetaUnderline<enum_RichTextLabel_MetaUnderline>` = 1\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                              | :ref:`push_mono<class_RichTextLabel_method_push_mono>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -223,7 +225,7 @@ Methods
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                              | :ref:`push_underline<class_RichTextLabel_method_push_underline>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | :ref:`bool<class_bool>`             | :ref:`remove_paragraph<class_RichTextLabel_method_remove_paragraph>`\ (\ paragraph\: :ref:`int<class_int>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+   | :ref:`bool<class_bool>`             | :ref:`remove_paragraph<class_RichTextLabel_method_remove_paragraph>`\ (\ paragraph\: :ref:`int<class_int>`, no_invalidate\: :ref:`bool<class_bool>` = false\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                              | :ref:`scroll_to_line<class_RichTextLabel_method_scroll_to_line>`\ (\ line\: :ref:`int<class_int>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -257,7 +259,7 @@ Theme Properties
    +---------------------------------+----------------------------------------------------------------------------------------------+-----------------------------+
    | :ref:`Color<class_Color>`       | :ref:`default_color<class_RichTextLabel_theme_color_default_color>`                          | ``Color(1, 1, 1, 1)``       |
    +---------------------------------+----------------------------------------------------------------------------------------------+-----------------------------+
-   | :ref:`Color<class_Color>`       | :ref:`font_outline_color<class_RichTextLabel_theme_color_font_outline_color>`                | ``Color(1, 1, 1, 1)``       |
+   | :ref:`Color<class_Color>`       | :ref:`font_outline_color<class_RichTextLabel_theme_color_font_outline_color>`                | ``Color(0, 0, 0, 1)``       |
    +---------------------------------+----------------------------------------------------------------------------------------------+-----------------------------+
    | :ref:`Color<class_Color>`       | :ref:`font_selected_color<class_RichTextLabel_theme_color_font_selected_color>`              | ``Color(0, 0, 0, 0)``       |
    +---------------------------------+----------------------------------------------------------------------------------------------+-----------------------------+
@@ -341,7 +343,22 @@ Triggered when the document is fully loaded.
 
 **meta_clicked**\ (\ meta\: :ref:`Variant<class_Variant>`\ )
 
-Triggered when the user clicks on content between meta tags. If the meta is defined in text, e.g. ``[url={"data"="hi"}]hi[/url]``, then the parameter for this signal will be a :ref:`String<class_String>` type. If a particular type or an object is desired, the :ref:`push_meta<class_RichTextLabel_method_push_meta>` method must be used to manually insert the data into the tag stack.
+Triggered when the user clicks on content between meta (URL) tags. If the meta is defined in BBCode, e.g. ``[url={"key": "value"}]Text[/url]``, then the parameter for this signal will always be a :ref:`String<class_String>` type. If a particular type or an object is desired, the :ref:`push_meta<class_RichTextLabel_method_push_meta>` method must be used to manually insert the data into the tag stack. Alternatively, you can convert the :ref:`String<class_String>` input to the desired type based on its contents (such as calling :ref:`JSON.parse<class_JSON_method_parse>` on it).
+
+For example, the following method can be connected to :ref:`meta_clicked<class_RichTextLabel_signal_meta_clicked>` to open clicked URLs using the user's default web browser:
+
+
+.. tabs::
+
+ .. code-tab:: gdscript
+
+    # This assumes RichTextLabel's `meta_clicked` signal was connected to
+    # the function below using the signal connection dialog.
+    func _richtextlabel_on_meta_clicked(meta):
+        # `meta` is of Variant type, so convert it to a String to avoid script errors at run-time.
+        OS.shell_open(str(meta))
+
+
 
 .. rst-class:: classref-item-separator
 
@@ -447,6 +464,40 @@ Selects the whole **RichTextLabel** text.
 :ref:`MenuItems<enum_RichTextLabel_MenuItems>` **MENU_MAX** = ``2``
 
 Represents the size of the :ref:`MenuItems<enum_RichTextLabel_MenuItems>` enum.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _enum_RichTextLabel_MetaUnderline:
+
+.. rst-class:: classref-enumeration
+
+enum **MetaUnderline**:
+
+.. _class_RichTextLabel_constant_META_UNDERLINE_NEVER:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`MetaUnderline<enum_RichTextLabel_MetaUnderline>` **META_UNDERLINE_NEVER** = ``0``
+
+Meta tag does not display an underline, even if :ref:`meta_underlined<class_RichTextLabel_property_meta_underlined>` is ``true``.
+
+.. _class_RichTextLabel_constant_META_UNDERLINE_ALWAYS:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`MetaUnderline<enum_RichTextLabel_MetaUnderline>` **META_UNDERLINE_ALWAYS** = ``1``
+
+If :ref:`meta_underlined<class_RichTextLabel_property_meta_underlined>` is ``true``, meta tag always display an underline.
+
+.. _class_RichTextLabel_constant_META_UNDERLINE_ON_HOVER:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`MetaUnderline<enum_RichTextLabel_MetaUnderline>` **META_UNDERLINE_ON_HOVER** = ``2``
+
+If :ref:`meta_underlined<class_RichTextLabel_property_meta_underlined>` is ``true``, meta tag display an underline when the mouse cursor is over it.
 
 .. rst-class:: classref-item-separator
 
@@ -560,6 +611,8 @@ If set to something other than :ref:`TextServer.AUTOWRAP_OFF<class_TextServer_co
 - :ref:`bool<class_bool>` **is_using_bbcode**\ (\ )
 
 If ``true``, the label uses BBCode formatting.
+
+\ **Note:** This only affects the contents of :ref:`text<class_RichTextLabel_property_text>`, not the tag stack.
 
 .. rst-class:: classref-item-separator
 
@@ -697,7 +750,7 @@ Language code used for line-breaking and text shaping algorithms, if left empty 
 - |void| **set_meta_underline**\ (\ value\: :ref:`bool<class_bool>`\ )
 - :ref:`bool<class_bool>` **is_meta_underlined**\ (\ )
 
-If ``true``, the label underlines meta tags such as ``[url]{text}[/url]``.
+If ``true``, the label underlines meta tags such as ``[url]{text}[/url]``. These tags can call a function when clicked if :ref:`meta_clicked<class_RichTextLabel_signal_meta_clicked>` is connected to a function.
 
 .. rst-class:: classref-item-separator
 
@@ -1008,9 +1061,9 @@ Parses ``bbcode`` and adds tags to the tag stack as needed.
 
 |void| **clear**\ (\ )
 
-Clears the tag stack.
+Clears the tag stack, causing the label to display nothing.
 
-\ **Note:** This method will not modify :ref:`text<class_RichTextLabel_property_text>`, but setting :ref:`text<class_RichTextLabel_property_text>` to an empty string also clears the stack.
+\ **Note:** This method does not affect :ref:`text<class_RichTextLabel_property_text>`, and its contents will show again if the label is redrawn. However, setting :ref:`text<class_RichTextLabel_property_text>` to an empty :ref:`String<class_String>` also clears the stack.
 
 .. rst-class:: classref-item-separator
 
@@ -1034,7 +1087,7 @@ Clears the current selection.
 
 :ref:`int<class_int>` **get_character_line**\ (\ character\: :ref:`int<class_int>`\ )
 
-Returns the line number of the character position provided.
+Returns the line number of the character position provided. Line and character numbers are both zero-indexed.
 
 \ **Note:** If :ref:`threaded<class_RichTextLabel_property_threaded>` is enabled, this method returns a value for the loaded part of the document. Use :ref:`is_ready<class_RichTextLabel_method_is_ready>` or :ref:`finished<class_RichTextLabel_signal_finished>` to determine whether document is fully loaded.
 
@@ -1048,7 +1101,7 @@ Returns the line number of the character position provided.
 
 :ref:`int<class_int>` **get_character_paragraph**\ (\ character\: :ref:`int<class_int>`\ )
 
-Returns the paragraph number of the character position provided.
+Returns the paragraph number of the character position provided. Paragraph and character numbers are both zero-indexed.
 
 \ **Note:** If :ref:`threaded<class_RichTextLabel_property_threaded>` is enabled, this method returns a value for the loaded part of the document. Use :ref:`is_ready<class_RichTextLabel_method_is_ready>` or :ref:`finished<class_RichTextLabel_signal_finished>` to determine whether document is fully loaded.
 
@@ -1331,6 +1384,18 @@ Registering the above effect in RichTextLabel from script:
     
         # Alternatively, if not using `class_name` in the script that extends RichTextEffect:
         install_effect(preload("res://effect.gd").new())
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_RichTextLabel_method_invalidate_paragraph:
+
+.. rst-class:: classref-method
+
+:ref:`bool<class_bool>` **invalidate_paragraph**\ (\ paragraph\: :ref:`int<class_int>`\ )
+
+Invalidates ``paragraph`` and all subsequent paragraphs cache.
 
 .. rst-class:: classref-item-separator
 
@@ -1642,9 +1707,13 @@ Adds ``[ol]`` or ``[ul]`` tag to the tag stack. Multiplies ``level`` by current 
 
 .. rst-class:: classref-method
 
-|void| **push_meta**\ (\ data\: :ref:`Variant<class_Variant>`\ )
+|void| **push_meta**\ (\ data\: :ref:`Variant<class_Variant>`, underline_mode\: :ref:`MetaUnderline<enum_RichTextLabel_MetaUnderline>` = 1\ )
 
 Adds a meta tag to the tag stack. Similar to the BBCode ``[url=something]{text}[/url]``, but supports non-:ref:`String<class_String>` metadata types.
+
+If :ref:`meta_underlined<class_RichTextLabel_property_meta_underlined>` is ``true``, meta tags display an underline. This behavior can be customized with ``underline_mode``.
+
+\ **Note:** Meta tags do nothing by default when clicked. To assign behavior when clicked, connect :ref:`meta_clicked<class_RichTextLabel_signal_meta_clicked>` to a function that is called when the meta tag is clicked.
 
 .. rst-class:: classref-item-separator
 
@@ -1750,11 +1819,13 @@ Adds a ``[u]`` tag to the tag stack.
 
 .. rst-class:: classref-method
 
-:ref:`bool<class_bool>` **remove_paragraph**\ (\ paragraph\: :ref:`int<class_int>`\ )
+:ref:`bool<class_bool>` **remove_paragraph**\ (\ paragraph\: :ref:`int<class_int>`, no_invalidate\: :ref:`bool<class_bool>` = false\ )
 
 Removes a paragraph of content from the label. Returns ``true`` if the paragraph exists.
 
 The ``paragraph`` argument is the index of the paragraph to remove, it can take values in the interval ``[0, get_paragraph_count() - 1]``.
+
+If ``no_invalidate`` is set to ``true``, cache for the subsequent paragraphs is not invalidated. Use it for faster updates if deleted paragraph is fully self-contained (have no unclosed tags), or this call is part of the complex edit operation and :ref:`invalidate_paragraph<class_RichTextLabel_method_invalidate_paragraph>` will be called at the end of operation.
 
 .. rst-class:: classref-item-separator
 
@@ -1907,7 +1978,7 @@ The default text color.
 
 .. rst-class:: classref-themeproperty
 
-:ref:`Color<class_Color>` **font_outline_color** = ``Color(1, 1, 1, 1)``
+:ref:`Color<class_Color>` **font_outline_color** = ``Color(0, 0, 0, 1)``
 
 The default tint of text outline.
 

@@ -111,6 +111,8 @@ Methods
    +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                          | :ref:`_overrides_external_editor<class_ScriptLanguageExtension_private_method__overrides_external_editor>`\ (\ ) |virtual|                                                                                                                                                                                                                                      |
    +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`ScriptNameCasing<enum_ScriptLanguage_ScriptNameCasing>`    | :ref:`_preferred_file_name_casing<class_ScriptLanguageExtension_private_method__preferred_file_name_casing>`\ (\ ) |virtual| |const|                                                                                                                                                                                                                            |
+   +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                                            | :ref:`_profiling_get_accumulated_data<class_ScriptLanguageExtension_private_method__profiling_get_accumulated_data>`\ (\ info_array\: ``ScriptLanguageExtensionProfilingInfo*``, info_max\: :ref:`int<class_int>`\ ) |virtual|                                                                                                                                  |
    +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                                            | :ref:`_profiling_get_frame_data<class_ScriptLanguageExtension_private_method__profiling_get_frame_data>`\ (\ info_array\: ``ScriptLanguageExtensionProfilingInfo*``, info_max\: :ref:`int<class_int>`\ ) |virtual|                                                                                                                                              |
@@ -299,7 +301,7 @@ The option is local to the location of the code completion query - e.g. a local 
 
 :ref:`CodeCompletionLocation<enum_ScriptLanguageExtension_CodeCompletionLocation>` **LOCATION_PARENT_MASK** = ``256``
 
-The option is from the containing class or a parent class, relative to the location of the code completion query. Perform a bitwise OR with the class depth (e.g. 0 for the local class, 1 for the parent, 2 for the grandparent, etc) to store the depth of an option in the class or a parent class.
+The option is from the containing class or a parent class, relative to the location of the code completion query. Perform a bitwise OR with the class depth (e.g. ``0`` for the local class, ``1`` for the parent, ``2`` for the grandparent, etc.) to store the depth of an option in the class or a parent class.
 
 .. _class_ScriptLanguageExtension_constant_LOCATION_OTHER_USER_CODE:
 
@@ -1057,6 +1059,20 @@ Returns the line where the function is defined in the code, or ``-1`` if the fun
 .. rst-class:: classref-method
 
 :ref:`bool<class_bool>` **_overrides_external_editor**\ (\ ) |virtual|
+
+.. container:: contribute
+
+	There is currently no description for this method. Please help us by :ref:`contributing one <doc_updating_the_class_reference>`!
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_ScriptLanguageExtension_private_method__preferred_file_name_casing:
+
+.. rst-class:: classref-method
+
+:ref:`ScriptNameCasing<enum_ScriptLanguage_ScriptNameCasing>` **_preferred_file_name_casing**\ (\ ) |virtual| |const|
 
 .. container:: contribute
 
