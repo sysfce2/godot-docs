@@ -120,9 +120,13 @@ Methods
    +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                           | :ref:`create_code_region<class_CodeEdit_method_create_code_region>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                              |
    +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                           | :ref:`delete_lines<class_CodeEdit_method_delete_lines>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                                          |
+   +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                           | :ref:`do_indent<class_CodeEdit_method_do_indent>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                                                |
    +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                           | :ref:`duplicate_lines<class_CodeEdit_method_duplicate_lines>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                                    |
+   +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                           | :ref:`duplicate_selection<class_CodeEdit_method_duplicate_selection>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                            |
    +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                           | :ref:`fold_all_lines<class_CodeEdit_method_fold_all_lines>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                                      |
    +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -188,6 +192,10 @@ Methods
    +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                          | :ref:`is_line_folded<class_CodeEdit_method_is_line_folded>`\ (\ line\: :ref:`int<class_int>`\ ) |const|                                                                                                                                                                                                                                                                                                                                                |
    +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                           | :ref:`move_lines_down<class_CodeEdit_method_move_lines_down>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                                    |
+   +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                           | :ref:`move_lines_up<class_CodeEdit_method_move_lines_up>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                                        |
+   +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                           | :ref:`remove_comment_delimiter<class_CodeEdit_method_remove_comment_delimiter>`\ (\ start_key\: :ref:`String<class_String>`\ )                                                                                                                                                                                                                                                                                                                         |
    +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                           | :ref:`remove_string_delimiter<class_CodeEdit_method_remove_string_delimiter>`\ (\ start_key\: :ref:`String<class_String>`\ )                                                                                                                                                                                                                                                                                                                           |
@@ -211,6 +219,8 @@ Methods
    | |void|                                                           | :ref:`set_symbol_lookup_word_as_valid<class_CodeEdit_method_set_symbol_lookup_word_as_valid>`\ (\ valid\: :ref:`bool<class_bool>`\ )                                                                                                                                                                                                                                                                                                                   |
    +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                           | :ref:`toggle_foldable_line<class_CodeEdit_method_toggle_foldable_line>`\ (\ line\: :ref:`int<class_int>`\ )                                                                                                                                                                                                                                                                                                                                            |
+   +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                           | :ref:`toggle_foldable_lines_at_carets<class_CodeEdit_method_toggle_foldable_lines_at_carets>`\ (\ )                                                                                                                                                                                                                                                                                                                                                    |
    +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                           | :ref:`unfold_all_lines<class_CodeEdit_method_unfold_all_lines>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                                  |
    +------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -453,7 +463,7 @@ The option is local to the location of the code completion query - e.g. a local 
 
 :ref:`CodeCompletionLocation<enum_CodeEdit_CodeCompletionLocation>` **LOCATION_PARENT_MASK** = ``256``
 
-The option is from the containing class or a parent class, relative to the location of the code completion query. Perform a bitwise OR with the class depth (e.g. 0 for the local class, 1 for the parent, 2 for the grandparent, etc) to store the depth of an option in the class or a parent class.
+The option is from the containing class or a parent class, relative to the location of the code completion query. Perform a bitwise OR with the class depth (e.g. ``0`` for the local class, ``1`` for the parent, ``2`` for the grandparent, etc.) to store the depth of an option in the class or a parent class.
 
 .. _class_CodeEdit_constant_LOCATION_OTHER_USER_CODE:
 
@@ -831,7 +841,7 @@ Method Descriptions
 
 |void| **_confirm_code_completion**\ (\ replace\: :ref:`bool<class_bool>`\ ) |virtual|
 
-Override this method to define how the selected entry should be inserted. If ``replace`` is true, any existing text should be replaced.
+Override this method to define how the selected entry should be inserted. If ``replace`` is ``true``, any existing text should be replaced.
 
 .. rst-class:: classref-item-separator
 
@@ -857,7 +867,7 @@ Both ``candidates`` and the return is a :ref:`Array<class_Array>` of :ref:`Dicti
 
 |void| **_request_code_completion**\ (\ force\: :ref:`bool<class_bool>`\ ) |virtual|
 
-Override this method to define what happens when the user requests code completion. If ``force`` is true, any checks should be bypassed.
+Override this method to define what happens when the user requests code completion. If ``force`` is ``true``, any checks should be bypassed.
 
 .. rst-class:: classref-item-separator
 
@@ -899,11 +909,9 @@ Submits an item to the queue of potential candidates for the autocomplete menu. 
 
 |void| **add_comment_delimiter**\ (\ start_key\: :ref:`String<class_String>`, end_key\: :ref:`String<class_String>`, line_only\: :ref:`bool<class_bool>` = false\ )
 
-Adds a comment delimiter.
+Adds a comment delimiter from ``start_key`` to ``end_key``. Both keys should be symbols, and ``start_key`` must not be shared with other delimiters.
 
-Both the start and end keys must be symbols. Only the start key has to be unique.
-
-\ ``line_only`` denotes if the region should continue until the end of the line or carry over on to the next line. If the end key is blank this is automatically set to ``true``.
+If ``line_only`` is ``true`` or ``end_key`` is an empty :ref:`String<class_String>`, the region does not carry over to the next line.
 
 .. rst-class:: classref-item-separator
 
@@ -915,11 +923,9 @@ Both the start and end keys must be symbols. Only the start key has to be unique
 
 |void| **add_string_delimiter**\ (\ start_key\: :ref:`String<class_String>`, end_key\: :ref:`String<class_String>`, line_only\: :ref:`bool<class_bool>` = false\ )
 
-Adds a string delimiter.
+Defines a string delimiter from ``start_key`` to ``end_key``. Both keys should be symbols, and ``start_key`` must not be shared with other delimiters.
 
-Both the start and end keys must be symbols. Only the start key has to be unique.
-
-\ ``line_only`` denotes if the region should continue until the end of the line or carry over on to the next line. If the end key is blank this is automatically set to ``true``.
+If ``line_only`` is ``true`` or ``end_key`` is an empty :ref:`String<class_String>`, the region does not carry over to the next line.
 
 .. rst-class:: classref-item-separator
 
@@ -1015,7 +1021,7 @@ Removes all string delimiters.
 
 |void| **confirm_code_completion**\ (\ replace\: :ref:`bool<class_bool>` = false\ )
 
-Inserts the selected entry into the text. If ``replace`` is true, any existing text is replaced rather than merged.
+Inserts the selected entry into the text. If ``replace`` is ``true``, any existing text is replaced rather than merged.
 
 .. rst-class:: classref-item-separator
 
@@ -1053,6 +1059,18 @@ Code regions are delimited using start and end tags (respectively ``region`` and
 
 ----
 
+.. _class_CodeEdit_method_delete_lines:
+
+.. rst-class:: classref-method
+
+|void| **delete_lines**\ (\ )
+
+Deletes all lines that are selected or have a caret on them.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_CodeEdit_method_do_indent:
 
 .. rst-class:: classref-method
@@ -1072,6 +1090,18 @@ Perform an indent as if the user activated the "ui_text_indent" action.
 |void| **duplicate_lines**\ (\ )
 
 Duplicates all lines currently selected with any caret. Duplicates the entire line beneath the current one no matter where the caret is within the line.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_CodeEdit_method_duplicate_selection:
+
+.. rst-class:: classref-method
+
+|void| **duplicate_selection**\ (\ )
+
+Duplicates all selected text and duplicates all lines with a caret on them.
 
 .. rst-class:: classref-item-separator
 
@@ -1473,6 +1503,30 @@ Returns whether the line at the specified index is folded or not.
 
 ----
 
+.. _class_CodeEdit_method_move_lines_down:
+
+.. rst-class:: classref-method
+
+|void| **move_lines_down**\ (\ )
+
+Moves all lines down that are selected or have a caret on them.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_CodeEdit_method_move_lines_up:
+
+.. rst-class:: classref-method
+
+|void| **move_lines_up**\ (\ )
+
+Moves all lines up that are selected or have a caret on them.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_CodeEdit_method_remove_comment_delimiter:
 
 .. rst-class:: classref-method
@@ -1503,7 +1557,7 @@ Removes the string delimiter with ``start_key``.
 
 |void| **request_code_completion**\ (\ force\: :ref:`bool<class_bool>` = false\ )
 
-Emits :ref:`code_completion_requested<class_CodeEdit_signal_code_completion_requested>`, if ``force`` is true will bypass all checks. Otherwise will check that the caret is in a word or in front of a prefix. Will ignore the request if all current options are of type file path, node path or signal.
+Emits :ref:`code_completion_requested<class_CodeEdit_signal_code_completion_requested>`, if ``force`` is ``true`` will bypass all checks. Otherwise will check that the caret is in a word or in front of a prefix. Will ignore the request if all current options are of type file path, node path, or signal.
 
 .. rst-class:: classref-item-separator
 
@@ -1612,6 +1666,18 @@ Sets the symbol emitted by :ref:`symbol_validate<class_CodeEdit_signal_symbol_va
 |void| **toggle_foldable_line**\ (\ line\: :ref:`int<class_int>`\ )
 
 Toggle the folding of the code block at the given line.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_CodeEdit_method_toggle_foldable_lines_at_carets:
+
+.. rst-class:: classref-method
+
+|void| **toggle_foldable_lines_at_carets**\ (\ )
+
+Toggle the folding of the code block on all lines with a caret on them.
 
 .. rst-class:: classref-item-separator
 
