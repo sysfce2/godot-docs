@@ -10,18 +10,18 @@
 Compositor
 ==========
 
-**Experimental:** More customisation of the rendering pipeline will be added in the future.
+**Experimental:** More customization of the rendering pipeline will be added in the future.
 
 **Inherits:** :ref:`Resource<class_Resource>` **<** :ref:`RefCounted<class_RefCounted>` **<** :ref:`Object<class_Object>`
 
-The compositor resource holds the configuration with which rendering of a viewport can be customised.
+Stores attributes used to customize how a Viewport is rendered.
 
 .. rst-class:: classref-introduction-group
 
 Description
 -----------
 
-The compositor resource holds the configuration with which rendering of a viewport can be customised.
+The compositor resource stores attributes used to customize how a :ref:`Viewport<class_Viewport>` is rendered.
 
 .. rst-class:: classref-reftable-group
 
