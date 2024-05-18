@@ -21,6 +21,8 @@ An array specifically designed to hold bytes. Packs data tightly, so it saves me
 
 \ **PackedByteArray** also provides methods to encode/decode various types to/from bytes. The way values are encoded is an implementation detail and shouldn't be relied upon when interacting with external apps.
 
+\ **Note:** Packed arrays are always passed by reference. To get a copy of an array that can be modified independently of the original array, use :ref:`duplicate<class_PackedByteArray_method_duplicate>`. This is *not* the case for built-in properties and methods. The returned packed array of these are a copies, and changing it will *not* affect the original value. To update a built-in property you need to modify the returned array, and then assign it to the property again.
+
 .. note::
 
 	There are notable differences when using this API with C#. See :ref:`doc_c_sharp_differences` for more information.
@@ -313,7 +315,7 @@ Returns the number of times an element is in the array.
 
 :ref:`float<class_float>` **decode_double**\ (\ byte_offset\: :ref:`int<class_int>`\ ) |const|
 
-Decodes a 64-bit floating point number from the bytes starting at ``byte_offset``. Fails if the byte count is insufficient. Returns ``0.0`` if a valid number can't be decoded.
+Decodes a 64-bit floating-point number from the bytes starting at ``byte_offset``. Fails if the byte count is insufficient. Returns ``0.0`` if a valid number can't be decoded.
 
 .. rst-class:: classref-item-separator
 
@@ -325,7 +327,7 @@ Decodes a 64-bit floating point number from the bytes starting at ``byte_offset`
 
 :ref:`float<class_float>` **decode_float**\ (\ byte_offset\: :ref:`int<class_int>`\ ) |const|
 
-Decodes a 32-bit floating point number from the bytes starting at ``byte_offset``. Fails if the byte count is insufficient. Returns ``0.0`` if a valid number can't be decoded.
+Decodes a 32-bit floating-point number from the bytes starting at ``byte_offset``. Fails if the byte count is insufficient. Returns ``0.0`` if a valid number can't be decoded.
 
 .. rst-class:: classref-item-separator
 
@@ -337,7 +339,7 @@ Decodes a 32-bit floating point number from the bytes starting at ``byte_offset`
 
 :ref:`float<class_float>` **decode_half**\ (\ byte_offset\: :ref:`int<class_int>`\ ) |const|
 
-Decodes a 16-bit floating point number from the bytes starting at ``byte_offset``. Fails if the byte count is insufficient. Returns ``0.0`` if a valid number can't be decoded.
+Decodes a 16-bit floating-point number from the bytes starting at ``byte_offset``. Fails if the byte count is insufficient. Returns ``0.0`` if a valid number can't be decoded.
 
 .. rst-class:: classref-item-separator
 
@@ -513,7 +515,7 @@ Creates a copy of the array, and returns it.
 
 |void| **encode_double**\ (\ byte_offset\: :ref:`int<class_int>`, value\: :ref:`float<class_float>`\ )
 
-Encodes a 64-bit floating point number as bytes at the index of ``byte_offset`` bytes. The array must have at least 8 bytes of allocated space, starting at the offset.
+Encodes a 64-bit floating-point number as bytes at the index of ``byte_offset`` bytes. The array must have at least 8 bytes of allocated space, starting at the offset.
 
 .. rst-class:: classref-item-separator
 
@@ -525,7 +527,7 @@ Encodes a 64-bit floating point number as bytes at the index of ``byte_offset`` 
 
 |void| **encode_float**\ (\ byte_offset\: :ref:`int<class_int>`, value\: :ref:`float<class_float>`\ )
 
-Encodes a 32-bit floating point number as bytes at the index of ``byte_offset`` bytes. The array must have at least 4 bytes of space, starting at the offset.
+Encodes a 32-bit floating-point number as bytes at the index of ``byte_offset`` bytes. The array must have at least 4 bytes of space, starting at the offset.
 
 .. rst-class:: classref-item-separator
 
@@ -537,7 +539,7 @@ Encodes a 32-bit floating point number as bytes at the index of ``byte_offset`` 
 
 |void| **encode_half**\ (\ byte_offset\: :ref:`int<class_int>`, value\: :ref:`float<class_float>`\ )
 
-Encodes a 16-bit floating point number as bytes at the index of ``byte_offset`` bytes. The array must have at least 2 bytes of space, starting at the offset.
+Encodes a 16-bit floating-point number as bytes at the index of ``byte_offset`` bytes. The array must have at least 2 bytes of space, starting at the offset.
 
 .. rst-class:: classref-item-separator
 
