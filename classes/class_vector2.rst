@@ -626,7 +626,7 @@ Returns the distance between this vector and ``to``.
 
 Returns the dot product of this vector and ``with``. This can be used to compare the angle between two vectors. For example, this can be used to determine whether an enemy is facing the player.
 
-The dot product will be ``0`` for a straight angle (90 degrees), greater than 0 for angles narrower than 90 degrees and lower than 0 for angles wider than 90 degrees.
+The dot product will be ``0`` for a right angle (90 degrees), greater than 0 for angles narrower than 90 degrees and lower than 0 for angles wider than 90 degrees.
 
 When using unit (normalized) vectors, the result will always be between ``-1.0`` (180 degree angle) when the vectors are facing opposite directions, and ``1.0`` (0 degree angle) when the vectors are aligned.
 
@@ -856,7 +856,7 @@ Returns a new vector moved toward ``to`` by the fixed ``delta`` amount. Will not
 
 :ref:`Vector2<class_Vector2>` **normalized**\ (\ ) |const| :ref:`🔗<class_Vector2_method_normalized>`
 
-Returns the result of scaling the vector to unit length. Equivalent to ``v / v.length()``. See also :ref:`is_normalized<class_Vector2_method_is_normalized>`.
+Returns the result of scaling the vector to unit length. Equivalent to ``v / v.length()``. Returns ``(0, 0)`` if ``v.length() == 0``. See also :ref:`is_normalized<class_Vector2_method_is_normalized>`.
 
 \ **Note:** This function may return incorrect values if the input vector length is near zero.
 

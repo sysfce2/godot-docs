@@ -99,6 +99,8 @@ Methods
    +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Transform3D<class_Transform3D>`           | :ref:`get_bone_rest<class_Skeleton3D_method_get_bone_rest>`\ (\ bone_idx\: :ref:`int<class_int>`\ ) |const|                                                                                                                                                         |
    +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`StringName<class_StringName>`             | :ref:`get_concatenated_bone_names<class_Skeleton3D_method_get_concatenated_bone_names>`\ (\ ) |const|                                                                                                                                                               |
+   +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`PackedInt32Array<class_PackedInt32Array>` | :ref:`get_parentless_bones<class_Skeleton3D_method_get_parentless_bones>`\ (\ ) |const|                                                                                                                                                                             |
    +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                           | :ref:`get_version<class_Skeleton3D_method_get_version>`\ (\ ) |const|                                                                                                                                                                                               |
@@ -602,6 +604,20 @@ Returns the rest transform for a bone ``bone_idx``.
 
 ----
 
+.. _class_Skeleton3D_method_get_concatenated_bone_names:
+
+.. rst-class:: classref-method
+
+:ref:`StringName<class_StringName>` **get_concatenated_bone_names**\ (\ ) |const| :ref:`🔗<class_Skeleton3D_method_get_concatenated_bone_names>`
+
+Returns all bone names concatenated with commas (``,``) as a single :ref:`StringName<class_StringName>`.
+
+It is useful to set it as a hint for the enum property.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_Skeleton3D_method_get_parentless_bones:
 
 .. rst-class:: classref-method
@@ -759,6 +775,10 @@ Sets all bone poses to rests.
 |void| **set_animate_physical_bones**\ (\ enabled\: :ref:`bool<class_bool>`\ ) :ref:`🔗<class_Skeleton3D_method_set_animate_physical_bones>`
 
 **Deprecated:** This method may be changed or removed in future versions.
+
+This method exists for compatibility with old structures in which the **Skeleton3D** does not have a :ref:`PhysicalBoneSimulator3D<class_PhysicalBoneSimulator3D>` as a child, but directly has :ref:`PhysicalBone3D<class_PhysicalBone3D>`\ s as children.
+
+In case you need to raycast to it without running :ref:`physical_bones_start_simulation<class_Skeleton3D_method_physical_bones_start_simulation>`, call this method with ``enabled == true``.
 
 .. rst-class:: classref-item-separator
 

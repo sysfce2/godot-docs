@@ -173,7 +173,7 @@ shader, this value can be used as desired.
 +----------------------------------------+--------------------------------------------------------+
 | in vec3 **CAMERA_DIRECTION_WORLD**     | Camera world space direction.                          |
 +----------------------------------------+--------------------------------------------------------+
-| in int **CAMERA_VISIBLE_LAYERS**       | Cull layers of the camera rendering the current pass.  |
+| in uint **CAMERA_VISIBLE_LAYERS**      | Cull layers of the camera rendering the current pass.  |
 +----------------------------------------+--------------------------------------------------------+
 | in bool **OUTPUT_IS_SRGB**             | ``true`` when output is in sRGB color space            |
 |                                        | (this is ``true`` in the Compatibility renderer,       |
@@ -220,15 +220,15 @@ shader, this value can be used as desired.
 +----------------------------------------+--------------------------------------------------------+
 | inout mat3 **MODELVIEW_NORMAL_MATRIX** |                                                        |
 +----------------------------------------+--------------------------------------------------------+
-| inout mat4 **MODEL_MATRIX**            | Model space to world space transform.                  |
+| in mat4 **MODEL_MATRIX**               | Model space to world space transform.                  |
 +----------------------------------------+--------------------------------------------------------+
-| inout mat3 **MODEL_NORMAL_MATRIX**     |                                                        |
+| in mat3 **MODEL_NORMAL_MATRIX**        |                                                        |
 +----------------------------------------+--------------------------------------------------------+
 | inout mat4 **PROJECTION_MATRIX**       | View space to clip space transform.                    |
 +----------------------------------------+--------------------------------------------------------+
-| inout uvec4 **BONE_INDICES**           |                                                        |
+| in uvec4 **BONE_INDICES**              |                                                        |
 +----------------------------------------+--------------------------------------------------------+
-| inout vec4 **BONE_WEIGHTS**            |                                                        |
+| in vec4 **BONE_WEIGHTS**               |                                                        |
 +----------------------------------------+--------------------------------------------------------+
 | in vec4 **CUSTOM0**                    |                                                        |
 +----------------------------------------+--------------------------------------------------------+
@@ -293,6 +293,8 @@ these properties, and if you don't write to them, Godot will optimize away the c
 | in vec3 **CAMERA_POSITION_WORLD**      | Camera position, in world space.                                                                 |
 +----------------------------------------+--------------------------------------------------------------------------------------------------+
 | in vec3 **CAMERA_DIRECTION_WORLD**     | Camera direction, in world space.                                                                |
++----------------------------------------+--------------------------------------------------------------------------------------------------+
+| in uint **CAMERA_VISIBLE_LAYERS**      | Cull layers of the camera rendering the current pass.                                            |
 +----------------------------------------+--------------------------------------------------------------------------------------------------+
 | in vec3 **VERTEX**                     | Vertex that comes from vertex function (default, in view space).                                 |
 +----------------------------------------+--------------------------------------------------------------------------------------------------+
