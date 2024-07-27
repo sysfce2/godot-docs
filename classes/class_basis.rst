@@ -25,7 +25,7 @@ A **Basis** is **orthogonal** if its axes are perpendicular to each other. A bas
 
 For a general introduction, see the :doc:`Matrices and transforms <../tutorials/math/matrices_and_transforms>` tutorial.
 
-\ **Note:** Godot uses a `right-handed coordinate system <https://en.wikipedia.org/wiki/Right-hand_rule>`__, which is a common standard. For directions, the convention for built-in types like :ref:`Camera3D<class_Camera3D>` is for -Z to point forward (+X is right, +Y is up, and +Z is back). Other objects may use different direction conventions. For more information, see the `Importing 3D Scenes <../tutorials/assets_pipeline/importing_scenes.html#d-asset-direction-conventions>`__ tutorial.
+\ **Note:** Godot uses a `right-handed coordinate system <https://en.wikipedia.org/wiki/Right-hand_rule>`__, which is a common standard. For directions, the convention for built-in types like :ref:`Camera3D<class_Camera3D>` is for -Z to point forward (+X is right, +Y is up, and +Z is back). Other objects may use different direction conventions. For more information, see the `3D asset direction conventions <../tutorials/assets_pipeline/importing_3d_scenes/model_export_considerations.html#d-asset-direction-conventions>`__ tutorial.
 
 \ **Note:** The basis matrices are exposed as `column-major <https://www.mindcontrol.org/~hplus/graphics/matrix-layout.html>`__ order, which is the same as OpenGL. However, they are stored internally in row-major order, which is the same as DirectX.
 
@@ -864,13 +864,15 @@ Transforms (multiplies) the ``right`` vector by this basis, returning a :ref:`Ve
 
  .. code-tab:: gdscript
 
-    var my_basis = Basis(Vector3(1, 1, 1), Vector3(1, 1, 1), Vector3(0, 2, 5))
-    print(my_basis * Vector3(1, 2, 3)) # Prints (7, 3, 16)
+    # Basis that swaps the X/Z axes and doubles the scale.
+    var my_basis = Basis(Vector3(0, 2, 0), Vector3(2, 0, 0), Vector3(0, 0, 2))
+    print(my_basis * Vector3(1, 2, 3)) # Prints (4, 2, 6)
 
  .. code-tab:: csharp
 
-    var myBasis = new Basis(new Vector3(1, 1, 1), new Vector3(1, 1, 1), new Vector3(0, 2, 5));
-    GD.Print(my_basis * new Vector3(1, 2, 3)); // Prints (7, 3, 16)
+    // Basis that swaps the X/Z axes and doubles the scale.
+    var myBasis = new Basis(new Vector3(0, 2, 0), new Vector3(2, 0, 0), new Vector3(0, 0, 2));
+    GD.Print(myBasis * new Vector3(1, 2, 3)); // Prints (4, 2, 6)
 
 
 
