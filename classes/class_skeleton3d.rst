@@ -41,6 +41,8 @@ Properties
    :widths: auto
 
    +---------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+-----------+
+   | :ref:`bool<class_bool>`                                                         | :ref:`animate_physical_bones<class_Skeleton3D_property_animate_physical_bones>`                 | ``true``  |
+   +---------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+-----------+
    | :ref:`ModifierCallbackModeProcess<enum_Skeleton3D_ModifierCallbackModeProcess>` | :ref:`modifier_callback_mode_process<class_Skeleton3D_property_modifier_callback_mode_process>` | ``1``     |
    +---------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+-----------+
    | :ref:`float<class_float>`                                                       | :ref:`motion_scale<class_Skeleton3D_property_motion_scale>`                                     | ``1.0``   |
@@ -71,8 +73,6 @@ Methods
    +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                          | :ref:`force_update_bone_child_transform<class_Skeleton3D_method_force_update_bone_child_transform>`\ (\ bone_idx\: :ref:`int<class_int>`\ )                                                                                                                         |
    +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | :ref:`bool<class_bool>`                         | :ref:`get_animate_physical_bones<class_Skeleton3D_method_get_animate_physical_bones>`\ (\ ) |const|                                                                                                                                                                 |
-   +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`PackedInt32Array<class_PackedInt32Array>` | :ref:`get_bone_children<class_Skeleton3D_method_get_bone_children>`\ (\ bone_idx\: :ref:`int<class_int>`\ ) |const|                                                                                                                                                 |
    +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                           | :ref:`get_bone_count<class_Skeleton3D_method_get_bone_count>`\ (\ ) |const|                                                                                                                                                                                         |
@@ -99,6 +99,8 @@ Methods
    +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Transform3D<class_Transform3D>`           | :ref:`get_bone_rest<class_Skeleton3D_method_get_bone_rest>`\ (\ bone_idx\: :ref:`int<class_int>`\ ) |const|                                                                                                                                                         |
    +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`StringName<class_StringName>`             | :ref:`get_concatenated_bone_names<class_Skeleton3D_method_get_concatenated_bone_names>`\ (\ ) |const|                                                                                                                                                               |
+   +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`PackedInt32Array<class_PackedInt32Array>` | :ref:`get_parentless_bones<class_Skeleton3D_method_get_parentless_bones>`\ (\ ) |const|                                                                                                                                                                             |
    +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                           | :ref:`get_version<class_Skeleton3D_method_get_version>`\ (\ ) |const|                                                                                                                                                                                               |
@@ -120,8 +122,6 @@ Methods
    | |void|                                          | :ref:`reset_bone_pose<class_Skeleton3D_method_reset_bone_pose>`\ (\ bone_idx\: :ref:`int<class_int>`\ )                                                                                                                                                             |
    +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                          | :ref:`reset_bone_poses<class_Skeleton3D_method_reset_bone_poses>`\ (\ )                                                                                                                                                                                             |
-   +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | |void|                                          | :ref:`set_animate_physical_bones<class_Skeleton3D_method_set_animate_physical_bones>`\ (\ enabled\: :ref:`bool<class_bool>`\ )                                                                                                                                      |
    +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                          | :ref:`set_bone_enabled<class_Skeleton3D_method_set_bone_enabled>`\ (\ bone_idx\: :ref:`int<class_int>`, enabled\: :ref:`bool<class_bool>` = true\ )                                                                                                                 |
    +-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -274,6 +274,27 @@ Notification received when this skeleton's pose needs to be updated. In that cas
 Property Descriptions
 ---------------------
 
+.. _class_Skeleton3D_property_animate_physical_bones:
+
+.. rst-class:: classref-property
+
+:ref:`bool<class_bool>` **animate_physical_bones** = ``true`` :ref:`🔗<class_Skeleton3D_property_animate_physical_bones>`
+
+.. rst-class:: classref-property-setget
+
+- |void| **set_animate_physical_bones**\ (\ value\: :ref:`bool<class_bool>`\ )
+- :ref:`bool<class_bool>` **get_animate_physical_bones**\ (\ )
+
+**Deprecated:** This property may be changed or removed in future versions.
+
+If you follow the recommended workflow and explicitly have :ref:`PhysicalBoneSimulator3D<class_PhysicalBoneSimulator3D>` as a child of **Skeleton3D**, you can control whether it is affected by raycasting without running :ref:`physical_bones_start_simulation<class_Skeleton3D_method_physical_bones_start_simulation>`, by its :ref:`SkeletonModifier3D.active<class_SkeletonModifier3D_property_active>`.
+
+However, for old (deprecated) configurations, **Skeleton3D** has an internal virtual :ref:`PhysicalBoneSimulator3D<class_PhysicalBoneSimulator3D>` for compatibility. This property controls the internal virtual :ref:`PhysicalBoneSimulator3D<class_PhysicalBoneSimulator3D>`'s :ref:`SkeletonModifier3D.active<class_SkeletonModifier3D_property_active>`.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_Skeleton3D_property_modifier_callback_mode_process:
 
 .. rst-class:: classref-property
@@ -419,18 +440,6 @@ Force updates the bone transforms/poses for all bones in the skeleton.
 |void| **force_update_bone_child_transform**\ (\ bone_idx\: :ref:`int<class_int>`\ ) :ref:`🔗<class_Skeleton3D_method_force_update_bone_child_transform>`
 
 Force updates the bone transform for the bone at ``bone_idx`` and all of its children.
-
-.. rst-class:: classref-item-separator
-
-----
-
-.. _class_Skeleton3D_method_get_animate_physical_bones:
-
-.. rst-class:: classref-method
-
-:ref:`bool<class_bool>` **get_animate_physical_bones**\ (\ ) |const| :ref:`🔗<class_Skeleton3D_method_get_animate_physical_bones>`
-
-**Deprecated:** This method may be changed or removed in future versions.
 
 .. rst-class:: classref-item-separator
 
@@ -602,6 +611,20 @@ Returns the rest transform for a bone ``bone_idx``.
 
 ----
 
+.. _class_Skeleton3D_method_get_concatenated_bone_names:
+
+.. rst-class:: classref-method
+
+:ref:`StringName<class_StringName>` **get_concatenated_bone_names**\ (\ ) |const| :ref:`🔗<class_Skeleton3D_method_get_concatenated_bone_names>`
+
+Returns all bone names concatenated with commas (``,``) as a single :ref:`StringName<class_StringName>`.
+
+It is useful to set it as a hint for the enum property.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_Skeleton3D_method_get_parentless_bones:
 
 .. rst-class:: classref-method
@@ -747,18 +770,6 @@ Sets the bone pose to rest for ``bone_idx``.
 |void| **reset_bone_poses**\ (\ ) :ref:`🔗<class_Skeleton3D_method_reset_bone_poses>`
 
 Sets all bone poses to rests.
-
-.. rst-class:: classref-item-separator
-
-----
-
-.. _class_Skeleton3D_method_set_animate_physical_bones:
-
-.. rst-class:: classref-method
-
-|void| **set_animate_physical_bones**\ (\ enabled\: :ref:`bool<class_bool>`\ ) :ref:`🔗<class_Skeleton3D_method_set_animate_physical_bones>`
-
-**Deprecated:** This method may be changed or removed in future versions.
 
 .. rst-class:: classref-item-separator
 
