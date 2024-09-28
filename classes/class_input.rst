@@ -672,6 +672,8 @@ On Linux:
 
 \ ``steam_input_index``: The Steam Input gamepad index, if the device is not a Steam Input device this key won't be present.
 
+\ **Note:** The returned dictionary is always empty on Web, iOS, Android, and macOS.
+
 .. rst-class:: classref-item-separator
 
 ----
@@ -934,8 +936,6 @@ Returns ``true`` if you are pressing the key in the physical location on the 101
 
 Feeds an :ref:`InputEvent<class_InputEvent>` to the game. Can be used to artificially trigger input events from code. Also generates :ref:`Node._input<class_Node_private_method__input>` calls.
 
-\ **Example:**\ 
-
 
 .. tabs::
 
@@ -1115,9 +1115,9 @@ Stops the vibration of the joypad started with :ref:`start_joy_vibration<class_I
 
 |void| **vibrate_handheld**\ (\ duration_ms\: :ref:`int<class_int>` = 500, amplitude\: :ref:`float<class_float>` = -1.0\ ) :ref:`🔗<class_Input_method_vibrate_handheld>`
 
-**Note:** While ``amplitude`` expects a value between 0 and 1, -1 does the default amplitude for the device.
-
 Vibrate the handheld device for the specified duration in milliseconds.
+
+\ ``amplitude`` is the strength of the vibration, as a value between ``0.0`` and ``1.0``. If set to ``-1.0``, the default vibration strength of the device is used.
 
 \ **Note:** This method is implemented on Android, iOS, and Web. It has no effect on other platforms.
 
