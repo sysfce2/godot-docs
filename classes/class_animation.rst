@@ -146,6 +146,8 @@ Methods
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Array<class_Array>`                                  | :ref:`method_track_get_params<class_Animation_method_method_track_get_params>`\ (\ track_idx\: :ref:`int<class_int>`, key_idx\: :ref:`int<class_int>`\ ) |const|                                                                                                                                                    |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                     | :ref:`optimize<class_Animation_method_optimize>`\ (\ allowed_velocity_err\: :ref:`float<class_float>` = 0.01, allowed_angular_err\: :ref:`float<class_float>` = 0.01, precision\: :ref:`int<class_int>` = 3\ )                                                                                                      |
+   +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                                      | :ref:`position_track_insert_key<class_Animation_method_position_track_insert_key>`\ (\ track_idx\: :ref:`int<class_int>`, time\: :ref:`float<class_float>`, position\: :ref:`Vector3<class_Vector3>`\ )                                                                                                             |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Vector3<class_Vector3>`                              | :ref:`position_track_interpolate<class_Animation_method_position_track_interpolate>`\ (\ track_idx\: :ref:`int<class_int>`, time_sec\: :ref:`float<class_float>`, backward\: :ref:`bool<class_bool>` = false\ ) |const|                                                                                             |
@@ -160,7 +162,7 @@ Methods
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Vector3<class_Vector3>`                              | :ref:`scale_track_interpolate<class_Animation_method_scale_track_interpolate>`\ (\ track_idx\: :ref:`int<class_int>`, time_sec\: :ref:`float<class_float>`, backward\: :ref:`bool<class_bool>` = false\ ) |const|                                                                                                   |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | :ref:`int<class_int>`                                      | :ref:`track_find_key<class_Animation_method_track_find_key>`\ (\ track_idx\: :ref:`int<class_int>`, time\: :ref:`float<class_float>`, find_mode\: :ref:`FindMode<enum_Animation_FindMode>` = 0, limit\: :ref:`bool<class_bool>` = false\ ) |const|                                                                  |
+   | :ref:`int<class_int>`                                      | :ref:`track_find_key<class_Animation_method_track_find_key>`\ (\ track_idx\: :ref:`int<class_int>`, time\: :ref:`float<class_float>`, find_mode\: :ref:`FindMode<enum_Animation_FindMode>` = 0, limit\: :ref:`bool<class_bool>` = false, backward\: :ref:`bool<class_bool>` = false\ ) |const|                      |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                    | :ref:`track_get_interpolation_loop_wrap<class_Animation_method_track_get_interpolation_loop_wrap>`\ (\ track_idx\: :ref:`int<class_int>`\ ) |const|                                                                                                                                                                 |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -951,6 +953,18 @@ Returns the arguments values to be called on a method track for a given key in a
 
 ----
 
+.. _class_Animation_method_optimize:
+
+.. rst-class:: classref-method
+
+|void| **optimize**\ (\ allowed_velocity_err\: :ref:`float<class_float>` = 0.01, allowed_angular_err\: :ref:`float<class_float>` = 0.01, precision\: :ref:`int<class_int>` = 3\ ) :ref:`🔗<class_Animation_method_optimize>`
+
+Optimize the animation and all its tracks in-place. This will preserve only as many keys as are necessary to keep the animation within the specified bounds.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_Animation_method_position_track_insert_key:
 
 .. rst-class:: classref-method
@@ -1039,11 +1053,15 @@ Returns the interpolated scale value at the given time (in seconds). The ``track
 
 .. rst-class:: classref-method
 
-:ref:`int<class_int>` **track_find_key**\ (\ track_idx\: :ref:`int<class_int>`, time\: :ref:`float<class_float>`, find_mode\: :ref:`FindMode<enum_Animation_FindMode>` = 0, limit\: :ref:`bool<class_bool>` = false\ ) |const| :ref:`🔗<class_Animation_method_track_find_key>`
+:ref:`int<class_int>` **track_find_key**\ (\ track_idx\: :ref:`int<class_int>`, time\: :ref:`float<class_float>`, find_mode\: :ref:`FindMode<enum_Animation_FindMode>` = 0, limit\: :ref:`bool<class_bool>` = false, backward\: :ref:`bool<class_bool>` = false\ ) |const| :ref:`🔗<class_Animation_method_track_find_key>`
 
 Finds the key index by time in a given track. Optionally, only find it if the approx/exact time is given.
 
 If ``limit`` is ``true``, it does not return keys outside the animation range.
+
+If ``backward`` is ``true``, the direction is reversed in methods that rely on one directional processing.
+
+For example, in case ``find_mode`` is :ref:`FIND_MODE_NEAREST<class_Animation_constant_FIND_MODE_NEAREST>`, if there is no key in the current position just after seeked, the first key found is retrieved by searching before the position, but if ``backward`` is ``true``, the first key found is retrieved after the position.
 
 .. rst-class:: classref-item-separator
 
@@ -1343,7 +1361,7 @@ Sets the value of an existing key.
 
 |void| **track_set_path**\ (\ track_idx\: :ref:`int<class_int>`, path\: :ref:`NodePath<class_NodePath>`\ ) :ref:`🔗<class_Animation_method_track_set_path>`
 
-Sets the path of a track. Paths must be valid scene-tree paths to a node and must be specified starting from the parent node of the node that will reproduce the animation. Tracks that control properties or bones must append their name after the path, separated by ``":"``.
+Sets the path of a track. Paths must be valid scene-tree paths to a node and must be specified starting from the :ref:`AnimationMixer.root_node<class_AnimationMixer_property_root_node>` that will reproduce the animation. Tracks that control properties or bones must append their name after the path, separated by ``":"``.
 
 For example, ``"character/skeleton:ankle"`` or ``"character/mesh:transform/local"``.
 
@@ -1382,6 +1400,8 @@ Returns the update mode of a value track.
 :ref:`Variant<class_Variant>` **value_track_interpolate**\ (\ track_idx\: :ref:`int<class_int>`, time_sec\: :ref:`float<class_float>`, backward\: :ref:`bool<class_bool>` = false\ ) |const| :ref:`🔗<class_Animation_method_value_track_interpolate>`
 
 Returns the interpolated value at the given time (in seconds). The ``track_idx`` must be the index of a value track.
+
+A ``backward`` mainly affects the direction of key retrieval of the track with :ref:`UPDATE_DISCRETE<class_Animation_constant_UPDATE_DISCRETE>` converted by :ref:`AnimationMixer.ANIMATION_CALLBACK_MODE_DISCRETE_FORCE_CONTINUOUS<class_AnimationMixer_constant_ANIMATION_CALLBACK_MODE_DISCRETE_FORCE_CONTINUOUS>` to match the result with :ref:`track_find_key<class_Animation_method_track_find_key>`.
 
 .. rst-class:: classref-item-separator
 
