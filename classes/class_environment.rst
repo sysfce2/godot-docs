@@ -433,7 +433,7 @@ Linear tonemapper operator. Reads the linear data and passes it on unmodified. T
 
 :ref:`ToneMapper<enum_Environment_ToneMapper>` **TONE_MAPPER_REINHARDT** = ``1``
 
-Reinhardt tonemapper operator. Performs a variation on rendered pixels' colors by this formula: ``color = color / (1 + color)``. This avoids clipping bright highlights, but the resulting image can look a bit dull.
+Reinhard tonemapper operator. Performs a variation on rendered pixels' colors by this formula: ``color = color * (1 + color / (white * white)) / (1 + color)``. This avoids clipping bright highlights, but the resulting image can look a bit dull. When :ref:`tonemap_white<class_Environment_property_tonemap_white>` is left at the default value of ``1.0`` this is identical to :ref:`TONE_MAPPER_LINEAR<class_Environment_constant_TONE_MAPPER_LINEAR>` while also being slightly less performant.
 
 .. _class_Environment_constant_TONE_MAPPER_FILMIC:
 
@@ -635,8 +635,6 @@ The global contrast value of the rendered scene (default value is 1). Effective 
 - :ref:`bool<class_bool>` **is_adjustment_enabled**\ (\ )
 
 If ``true``, enables the ``adjustment_*`` properties provided by this resource. If ``false``, modifications to the ``adjustment_*`` properties will have no effect on the rendered scene.
-
-\ **Note:** Adjustments are only supported in the Forward+ and Mobile rendering methods, not Compatibility.
 
 .. rst-class:: classref-item-separator
 
