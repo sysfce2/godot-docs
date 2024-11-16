@@ -44,6 +44,8 @@ Methods
    +-------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                  | :ref:`send_message<class_EditorDebuggerSession_method_send_message>`\ (\ message\: :ref:`String<class_String>`, data\: :ref:`Array<class_Array>` = []\ )                                          |
    +-------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                  | :ref:`set_breakpoint<class_EditorDebuggerSession_method_set_breakpoint>`\ (\ path\: :ref:`String<class_String>`, line\: :ref:`int<class_int>`, enabled\: :ref:`bool<class_bool>`\ )               |
+   +-------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                  | :ref:`toggle_profiler<class_EditorDebuggerSession_method_toggle_profiler>`\ (\ profiler\: :ref:`String<class_String>`, enable\: :ref:`bool<class_bool>`, data\: :ref:`Array<class_Array>` = []\ ) |
    +-------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
@@ -115,7 +117,7 @@ Method Descriptions
 
 |void| **add_session_tab**\ (\ control\: :ref:`Control<class_Control>`\ ) :ref:`🔗<class_EditorDebuggerSession_method_add_session_tab>`
 
-Adds the given ``control`` to the debug session UI in the debugger bottom panel.
+Adds the given ``control`` to the debug session UI in the debugger bottom panel. The ``control``'s node name will be used as the tab title.
 
 .. rst-class:: classref-item-separator
 
@@ -176,6 +178,18 @@ Removes the given ``control`` from the debug session UI in the debugger bottom p
 |void| **send_message**\ (\ message\: :ref:`String<class_String>`, data\: :ref:`Array<class_Array>` = []\ ) :ref:`🔗<class_EditorDebuggerSession_method_send_message>`
 
 Sends the given ``message`` to the attached remote instance, optionally passing additionally ``data``. See :ref:`EngineDebugger<class_EngineDebugger>` for how to retrieve those messages.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_EditorDebuggerSession_method_set_breakpoint:
+
+.. rst-class:: classref-method
+
+|void| **set_breakpoint**\ (\ path\: :ref:`String<class_String>`, line\: :ref:`int<class_int>`, enabled\: :ref:`bool<class_bool>`\ ) :ref:`🔗<class_EditorDebuggerSession_method_set_breakpoint>`
+
+Enables or disables a specific breakpoint based on ``enabled``, updating the Editor Breakpoint Panel accordingly.
 
 .. rst-class:: classref-item-separator
 
