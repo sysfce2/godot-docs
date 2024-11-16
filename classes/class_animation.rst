@@ -86,6 +86,8 @@ Methods
    :widths: auto
 
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                     | :ref:`add_marker<class_Animation_method_add_marker>`\ (\ name\: :ref:`StringName<class_StringName>`, time\: :ref:`float<class_float>`\ )                                                                                                                                                                            |
+   +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                                      | :ref:`add_track<class_Animation_method_add_track>`\ (\ type\: :ref:`TrackType<enum_Animation_TrackType>`, at_position\: :ref:`int<class_int>` = -1\ )                                                                                                                                                               |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`StringName<class_StringName>`                        | :ref:`animation_track_get_key_animation<class_Animation_method_animation_track_get_key_animation>`\ (\ track_idx\: :ref:`int<class_int>`, key_idx\: :ref:`int<class_int>`\ ) |const|                                                                                                                                |
@@ -140,15 +142,33 @@ Methods
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                                      | :ref:`find_track<class_Animation_method_find_track>`\ (\ path\: :ref:`NodePath<class_NodePath>`, type\: :ref:`TrackType<enum_Animation_TrackType>`\ ) |const|                                                                                                                                                       |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`StringName<class_StringName>`                        | :ref:`get_marker_at_time<class_Animation_method_get_marker_at_time>`\ (\ time\: :ref:`float<class_float>`\ ) |const|                                                                                                                                                                                                |
+   +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`Color<class_Color>`                                  | :ref:`get_marker_color<class_Animation_method_get_marker_color>`\ (\ name\: :ref:`StringName<class_StringName>`\ ) |const|                                                                                                                                                                                          |
+   +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`PackedStringArray<class_PackedStringArray>`          | :ref:`get_marker_names<class_Animation_method_get_marker_names>`\ (\ ) |const|                                                                                                                                                                                                                                      |
+   +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`float<class_float>`                                  | :ref:`get_marker_time<class_Animation_method_get_marker_time>`\ (\ name\: :ref:`StringName<class_StringName>`\ ) |const|                                                                                                                                                                                            |
+   +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`StringName<class_StringName>`                        | :ref:`get_next_marker<class_Animation_method_get_next_marker>`\ (\ time\: :ref:`float<class_float>`\ ) |const|                                                                                                                                                                                                      |
+   +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`StringName<class_StringName>`                        | :ref:`get_prev_marker<class_Animation_method_get_prev_marker>`\ (\ time\: :ref:`float<class_float>`\ ) |const|                                                                                                                                                                                                      |
+   +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                                      | :ref:`get_track_count<class_Animation_method_get_track_count>`\ (\ ) |const|                                                                                                                                                                                                                                        |
+   +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`bool<class_bool>`                                    | :ref:`has_marker<class_Animation_method_has_marker>`\ (\ name\: :ref:`StringName<class_StringName>`\ ) |const|                                                                                                                                                                                                      |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`StringName<class_StringName>`                        | :ref:`method_track_get_name<class_Animation_method_method_track_get_name>`\ (\ track_idx\: :ref:`int<class_int>`, key_idx\: :ref:`int<class_int>`\ ) |const|                                                                                                                                                        |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Array<class_Array>`                                  | :ref:`method_track_get_params<class_Animation_method_method_track_get_params>`\ (\ track_idx\: :ref:`int<class_int>`, key_idx\: :ref:`int<class_int>`\ ) |const|                                                                                                                                                    |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                     | :ref:`optimize<class_Animation_method_optimize>`\ (\ allowed_velocity_err\: :ref:`float<class_float>` = 0.01, allowed_angular_err\: :ref:`float<class_float>` = 0.01, precision\: :ref:`int<class_int>` = 3\ )                                                                                                      |
+   +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                                      | :ref:`position_track_insert_key<class_Animation_method_position_track_insert_key>`\ (\ track_idx\: :ref:`int<class_int>`, time\: :ref:`float<class_float>`, position\: :ref:`Vector3<class_Vector3>`\ )                                                                                                             |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Vector3<class_Vector3>`                              | :ref:`position_track_interpolate<class_Animation_method_position_track_interpolate>`\ (\ track_idx\: :ref:`int<class_int>`, time_sec\: :ref:`float<class_float>`, backward\: :ref:`bool<class_bool>` = false\ ) |const|                                                                                             |
+   +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                     | :ref:`remove_marker<class_Animation_method_remove_marker>`\ (\ name\: :ref:`StringName<class_StringName>`\ )                                                                                                                                                                                                        |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                     | :ref:`remove_track<class_Animation_method_remove_track>`\ (\ track_idx\: :ref:`int<class_int>`\ )                                                                                                                                                                                                                   |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -160,7 +180,9 @@ Methods
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Vector3<class_Vector3>`                              | :ref:`scale_track_interpolate<class_Animation_method_scale_track_interpolate>`\ (\ track_idx\: :ref:`int<class_int>`, time_sec\: :ref:`float<class_float>`, backward\: :ref:`bool<class_bool>` = false\ ) |const|                                                                                                   |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | :ref:`int<class_int>`                                      | :ref:`track_find_key<class_Animation_method_track_find_key>`\ (\ track_idx\: :ref:`int<class_int>`, time\: :ref:`float<class_float>`, find_mode\: :ref:`FindMode<enum_Animation_FindMode>` = 0, limit\: :ref:`bool<class_bool>` = false\ ) |const|                                                                  |
+   | |void|                                                     | :ref:`set_marker_color<class_Animation_method_set_marker_color>`\ (\ name\: :ref:`StringName<class_StringName>`, color\: :ref:`Color<class_Color>`\ )                                                                                                                                                               |
+   +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`int<class_int>`                                      | :ref:`track_find_key<class_Animation_method_track_find_key>`\ (\ track_idx\: :ref:`int<class_int>`, time\: :ref:`float<class_float>`, find_mode\: :ref:`FindMode<enum_Animation_FindMode>` = 0, limit\: :ref:`bool<class_bool>` = false, backward\: :ref:`bool<class_bool>` = false\ ) |const|                      |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                    | :ref:`track_get_interpolation_loop_wrap<class_Animation_method_track_get_interpolation_loop_wrap>`\ (\ track_idx\: :ref:`int<class_int>`\ ) |const|                                                                                                                                                                 |
    +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -581,6 +603,18 @@ The animation step value.
 Method Descriptions
 -------------------
 
+.. _class_Animation_method_add_marker:
+
+.. rst-class:: classref-method
+
+|void| **add_marker**\ (\ name\: :ref:`StringName<class_StringName>`, time\: :ref:`float<class_float>`\ ) :ref:`🔗<class_Animation_method_add_marker>`
+
+Adds a marker to this Animation.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_Animation_method_add_track:
 
 .. rst-class:: classref-method
@@ -915,6 +949,78 @@ Returns the index of the specified track. If the track is not found, return -1.
 
 ----
 
+.. _class_Animation_method_get_marker_at_time:
+
+.. rst-class:: classref-method
+
+:ref:`StringName<class_StringName>` **get_marker_at_time**\ (\ time\: :ref:`float<class_float>`\ ) |const| :ref:`🔗<class_Animation_method_get_marker_at_time>`
+
+Returns the name of the marker located at the given time.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_Animation_method_get_marker_color:
+
+.. rst-class:: classref-method
+
+:ref:`Color<class_Color>` **get_marker_color**\ (\ name\: :ref:`StringName<class_StringName>`\ ) |const| :ref:`🔗<class_Animation_method_get_marker_color>`
+
+Returns the given marker's color.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_Animation_method_get_marker_names:
+
+.. rst-class:: classref-method
+
+:ref:`PackedStringArray<class_PackedStringArray>` **get_marker_names**\ (\ ) |const| :ref:`🔗<class_Animation_method_get_marker_names>`
+
+Returns every marker in this Animation, sorted ascending by time.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_Animation_method_get_marker_time:
+
+.. rst-class:: classref-method
+
+:ref:`float<class_float>` **get_marker_time**\ (\ name\: :ref:`StringName<class_StringName>`\ ) |const| :ref:`🔗<class_Animation_method_get_marker_time>`
+
+Returns the given marker's time.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_Animation_method_get_next_marker:
+
+.. rst-class:: classref-method
+
+:ref:`StringName<class_StringName>` **get_next_marker**\ (\ time\: :ref:`float<class_float>`\ ) |const| :ref:`🔗<class_Animation_method_get_next_marker>`
+
+Returns the closest marker that comes after the given time. If no such marker exists, an empty string is returned.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_Animation_method_get_prev_marker:
+
+.. rst-class:: classref-method
+
+:ref:`StringName<class_StringName>` **get_prev_marker**\ (\ time\: :ref:`float<class_float>`\ ) |const| :ref:`🔗<class_Animation_method_get_prev_marker>`
+
+Returns the closest marker that comes before the given time. If no such marker exists, an empty string is returned.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_Animation_method_get_track_count:
 
 .. rst-class:: classref-method
@@ -922,6 +1028,18 @@ Returns the index of the specified track. If the track is not found, return -1.
 :ref:`int<class_int>` **get_track_count**\ (\ ) |const| :ref:`🔗<class_Animation_method_get_track_count>`
 
 Returns the amount of tracks in the animation.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_Animation_method_has_marker:
+
+.. rst-class:: classref-method
+
+:ref:`bool<class_bool>` **has_marker**\ (\ name\: :ref:`StringName<class_StringName>`\ ) |const| :ref:`🔗<class_Animation_method_has_marker>`
+
+Returns ``true`` if this Animation contains a marker with the given name.
 
 .. rst-class:: classref-item-separator
 
@@ -951,6 +1069,18 @@ Returns the arguments values to be called on a method track for a given key in a
 
 ----
 
+.. _class_Animation_method_optimize:
+
+.. rst-class:: classref-method
+
+|void| **optimize**\ (\ allowed_velocity_err\: :ref:`float<class_float>` = 0.01, allowed_angular_err\: :ref:`float<class_float>` = 0.01, precision\: :ref:`int<class_int>` = 3\ ) :ref:`🔗<class_Animation_method_optimize>`
+
+Optimize the animation and all its tracks in-place. This will preserve only as many keys as are necessary to keep the animation within the specified bounds.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_Animation_method_position_track_insert_key:
 
 .. rst-class:: classref-method
@@ -970,6 +1100,18 @@ Inserts a key in a given 3D position track. Returns the key index.
 :ref:`Vector3<class_Vector3>` **position_track_interpolate**\ (\ track_idx\: :ref:`int<class_int>`, time_sec\: :ref:`float<class_float>`, backward\: :ref:`bool<class_bool>` = false\ ) |const| :ref:`🔗<class_Animation_method_position_track_interpolate>`
 
 Returns the interpolated position value at the given time (in seconds). The ``track_idx`` must be the index of a 3D position track.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_Animation_method_remove_marker:
+
+.. rst-class:: classref-method
+
+|void| **remove_marker**\ (\ name\: :ref:`StringName<class_StringName>`\ ) :ref:`🔗<class_Animation_method_remove_marker>`
+
+Removes the marker with the given name from this Animation.
 
 .. rst-class:: classref-item-separator
 
@@ -1035,15 +1177,31 @@ Returns the interpolated scale value at the given time (in seconds). The ``track
 
 ----
 
+.. _class_Animation_method_set_marker_color:
+
+.. rst-class:: classref-method
+
+|void| **set_marker_color**\ (\ name\: :ref:`StringName<class_StringName>`, color\: :ref:`Color<class_Color>`\ ) :ref:`🔗<class_Animation_method_set_marker_color>`
+
+Sets the given marker's color.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_Animation_method_track_find_key:
 
 .. rst-class:: classref-method
 
-:ref:`int<class_int>` **track_find_key**\ (\ track_idx\: :ref:`int<class_int>`, time\: :ref:`float<class_float>`, find_mode\: :ref:`FindMode<enum_Animation_FindMode>` = 0, limit\: :ref:`bool<class_bool>` = false\ ) |const| :ref:`🔗<class_Animation_method_track_find_key>`
+:ref:`int<class_int>` **track_find_key**\ (\ track_idx\: :ref:`int<class_int>`, time\: :ref:`float<class_float>`, find_mode\: :ref:`FindMode<enum_Animation_FindMode>` = 0, limit\: :ref:`bool<class_bool>` = false, backward\: :ref:`bool<class_bool>` = false\ ) |const| :ref:`🔗<class_Animation_method_track_find_key>`
 
 Finds the key index by time in a given track. Optionally, only find it if the approx/exact time is given.
 
 If ``limit`` is ``true``, it does not return keys outside the animation range.
+
+If ``backward`` is ``true``, the direction is reversed in methods that rely on one directional processing.
+
+For example, in case ``find_mode`` is :ref:`FIND_MODE_NEAREST<class_Animation_constant_FIND_MODE_NEAREST>`, if there is no key in the current position just after seeked, the first key found is retrieved by searching before the position, but if ``backward`` is ``true``, the first key found is retrieved after the position.
 
 .. rst-class:: classref-item-separator
 
@@ -1343,7 +1501,7 @@ Sets the value of an existing key.
 
 |void| **track_set_path**\ (\ track_idx\: :ref:`int<class_int>`, path\: :ref:`NodePath<class_NodePath>`\ ) :ref:`🔗<class_Animation_method_track_set_path>`
 
-Sets the path of a track. Paths must be valid scene-tree paths to a node and must be specified starting from the parent node of the node that will reproduce the animation. Tracks that control properties or bones must append their name after the path, separated by ``":"``.
+Sets the path of a track. Paths must be valid scene-tree paths to a node and must be specified starting from the :ref:`AnimationMixer.root_node<class_AnimationMixer_property_root_node>` that will reproduce the animation. Tracks that control properties or bones must append their name after the path, separated by ``":"``.
 
 For example, ``"character/skeleton:ankle"`` or ``"character/mesh:transform/local"``.
 
@@ -1382,6 +1540,8 @@ Returns the update mode of a value track.
 :ref:`Variant<class_Variant>` **value_track_interpolate**\ (\ track_idx\: :ref:`int<class_int>`, time_sec\: :ref:`float<class_float>`, backward\: :ref:`bool<class_bool>` = false\ ) |const| :ref:`🔗<class_Animation_method_value_track_interpolate>`
 
 Returns the interpolated value at the given time (in seconds). The ``track_idx`` must be the index of a value track.
+
+A ``backward`` mainly affects the direction of key retrieval of the track with :ref:`UPDATE_DISCRETE<class_Animation_constant_UPDATE_DISCRETE>` converted by :ref:`AnimationMixer.ANIMATION_CALLBACK_MODE_DISCRETE_FORCE_CONTINUOUS<class_AnimationMixer_constant_ANIMATION_CALLBACK_MODE_DISCRETE_FORCE_CONTINUOUS>` to match the result with :ref:`track_find_key<class_Animation_method_track_find_key>`.
 
 .. rst-class:: classref-item-separator
 
