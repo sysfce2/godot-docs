@@ -57,6 +57,8 @@ Methods
    +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Dictionary<class_Dictionary>`                              | :ref:`_debug_get_stack_level_members<class_ScriptLanguageExtension_private_method__debug_get_stack_level_members>`\ (\ level\: :ref:`int<class_int>`, max_subitems\: :ref:`int<class_int>`, max_depth\: :ref:`int<class_int>`\ ) |virtual|                                                                                                                      |
    +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`String<class_String>`                                      | :ref:`_debug_get_stack_level_source<class_ScriptLanguageExtension_private_method__debug_get_stack_level_source>`\ (\ level\: :ref:`int<class_int>`\ ) |virtual| |const|                                                                                                                                                                                         |
+   +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`String<class_String>`                                      | :ref:`_debug_parse_stack_level_expression<class_ScriptLanguageExtension_private_method__debug_parse_stack_level_expression>`\ (\ level\: :ref:`int<class_int>`, expression\: :ref:`String<class_String>`, max_subitems\: :ref:`int<class_int>`, max_depth\: :ref:`int<class_int>`\ ) |virtual|                                                                  |
    +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                                            | :ref:`_find_function<class_ScriptLanguageExtension_private_method__find_function>`\ (\ function\: :ref:`String<class_String>`, code\: :ref:`String<class_String>`\ ) |virtual| |const|                                                                                                                                                                          |
@@ -124,6 +126,8 @@ Methods
    | |void|                                                           | :ref:`_profiling_stop<class_ScriptLanguageExtension_private_method__profiling_stop>`\ (\ ) |virtual|                                                                                                                                                                                                                                                            |
    +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                           | :ref:`_reload_all_scripts<class_ScriptLanguageExtension_private_method__reload_all_scripts>`\ (\ ) |virtual|                                                                                                                                                                                                                                                    |
+   +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                           | :ref:`_reload_scripts<class_ScriptLanguageExtension_private_method__reload_scripts>`\ (\ scripts\: :ref:`Array<class_Array>`, soft_reload\: :ref:`bool<class_bool>`\ ) |virtual|                                                                                                                                                                                |
    +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                           | :ref:`_reload_tool_script<class_ScriptLanguageExtension_private_method__reload_tool_script>`\ (\ script\: :ref:`Script<class_Script>`, soft_reload\: :ref:`bool<class_bool>`\ ) |virtual|                                                                                                                                                                       |
    +------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -694,6 +698,18 @@ Method Descriptions
 
 ----
 
+.. _class_ScriptLanguageExtension_private_method__debug_get_stack_level_source:
+
+.. rst-class:: classref-method
+
+:ref:`String<class_String>` **_debug_get_stack_level_source**\ (\ level\: :ref:`int<class_int>`\ ) |virtual| |const| :ref:`🔗<class_ScriptLanguageExtension_private_method__debug_get_stack_level_source>`
+
+Returns the source associated with a given debug stack position.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_ScriptLanguageExtension_private_method__debug_parse_stack_level_expression:
 
 .. rst-class:: classref-method
@@ -1157,6 +1173,20 @@ Returns the line where the function is defined in the code, or ``-1`` if the fun
 .. rst-class:: classref-method
 
 |void| **_reload_all_scripts**\ (\ ) |virtual| :ref:`🔗<class_ScriptLanguageExtension_private_method__reload_all_scripts>`
+
+.. container:: contribute
+
+	There is currently no description for this method. Please help us by :ref:`contributing one <doc_updating_the_class_reference>`!
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_ScriptLanguageExtension_private_method__reload_scripts:
+
+.. rst-class:: classref-method
+
+|void| **_reload_scripts**\ (\ scripts\: :ref:`Array<class_Array>`, soft_reload\: :ref:`bool<class_bool>`\ ) |virtual| :ref:`🔗<class_ScriptLanguageExtension_private_method__reload_scripts>`
 
 .. container:: contribute
 

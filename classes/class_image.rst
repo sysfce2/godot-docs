@@ -81,6 +81,8 @@ Methods
    +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Image<class_Image>`                     | :ref:`create<class_Image_method_create>`\ (\ width\: :ref:`int<class_int>`, height\: :ref:`int<class_int>`, use_mipmaps\: :ref:`bool<class_bool>`, format\: :ref:`Format<enum_Image_Format>`\ ) |static|                                                                           |
    +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`Image<class_Image>`                     | :ref:`create_empty<class_Image_method_create_empty>`\ (\ width\: :ref:`int<class_int>`, height\: :ref:`int<class_int>`, use_mipmaps\: :ref:`bool<class_bool>`, format\: :ref:`Format<enum_Image_Format>`\ ) |static|                                                               |
+   +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Image<class_Image>`                     | :ref:`create_from_data<class_Image_method_create_from_data>`\ (\ width\: :ref:`int<class_int>`, height\: :ref:`int<class_int>`, use_mipmaps\: :ref:`bool<class_bool>`, format\: :ref:`Format<enum_Image_Format>`, data\: :ref:`PackedByteArray<class_PackedByteArray>`\ ) |static| |
    +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                        | :ref:`crop<class_Image_method_crop>`\ (\ width\: :ref:`int<class_int>`, height\: :ref:`int<class_int>`\ )                                                                                                                                                                          |
@@ -104,6 +106,8 @@ Methods
    | :ref:`Error<enum_@GlobalScope_Error>`         | :ref:`generate_mipmaps<class_Image_method_generate_mipmaps>`\ (\ renormalize\: :ref:`bool<class_bool>` = false\ )                                                                                                                                                                  |
    +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`PackedByteArray<class_PackedByteArray>` | :ref:`get_data<class_Image_method_get_data>`\ (\ ) |const|                                                                                                                                                                                                                         |
+   +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`int<class_int>`                         | :ref:`get_data_size<class_Image_method_get_data_size>`\ (\ ) |const|                                                                                                                                                                                                               |
    +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Format<enum_Image_Format>`              | :ref:`get_format<class_Image_method_get_format>`\ (\ ) |const|                                                                                                                                                                                                                     |
    +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -132,6 +136,8 @@ Methods
    | :ref:`bool<class_bool>`                       | :ref:`is_empty<class_Image_method_is_empty>`\ (\ ) |const|                                                                                                                                                                                                                         |
    +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                       | :ref:`is_invisible<class_Image_method_is_invisible>`\ (\ ) |const|                                                                                                                                                                                                                 |
+   +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                        | :ref:`linear_to_srgb<class_Image_method_linear_to_srgb>`\ (\ )                                                                                                                                                                                                                     |
    +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Error<enum_@GlobalScope_Error>`         | :ref:`load<class_Image_method_load>`\ (\ path\: :ref:`String<class_String>`\ )                                                                                                                                                                                                     |
    +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -910,6 +916,8 @@ Alpha-blends ``src_rect`` from ``src`` image to this image using ``mask`` image 
 
 Copies ``src_rect`` from ``src`` image to this image at coordinates ``dst``, clipped accordingly to both image bounds. This image and ``src`` image **must** have the same format. ``src_rect`` with non-positive size is treated as empty.
 
+\ **Note:** The alpha channel data in ``src`` will overwrite the corresponding data in this image at the target position. To blend alpha channels, use :ref:`blend_rect<class_Image_method_blend_rect>` instead.
+
 .. rst-class:: classref-item-separator
 
 ----
@@ -1025,6 +1033,20 @@ Copies ``src`` image to this image.
 .. rst-class:: classref-method
 
 :ref:`Image<class_Image>` **create**\ (\ width\: :ref:`int<class_int>`, height\: :ref:`int<class_int>`, use_mipmaps\: :ref:`bool<class_bool>`, format\: :ref:`Format<enum_Image_Format>`\ ) |static| :ref:`🔗<class_Image_method_create>`
+
+**Deprecated:** Use :ref:`create_empty<class_Image_method_create_empty>`.
+
+Creates an empty image of given size and format. See :ref:`Format<enum_Image_Format>` constants. If ``use_mipmaps`` is ``true``, then generate mipmaps for this image. See the :ref:`generate_mipmaps<class_Image_method_generate_mipmaps>`.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_Image_method_create_empty:
+
+.. rst-class:: classref-method
+
+:ref:`Image<class_Image>` **create_empty**\ (\ width\: :ref:`int<class_int>`, height\: :ref:`int<class_int>`, use_mipmaps\: :ref:`bool<class_bool>`, format\: :ref:`Format<enum_Image_Format>`\ ) |static| :ref:`🔗<class_Image_method_create_empty>`
 
 Creates an empty image of given size and format. See :ref:`Format<enum_Image_Format>` constants. If ``use_mipmaps`` is ``true``, then generate mipmaps for this image. See the :ref:`generate_mipmaps<class_Image_method_generate_mipmaps>`.
 
@@ -1175,6 +1197,18 @@ It is possible to check if the image has mipmaps by calling :ref:`has_mipmaps<cl
 :ref:`PackedByteArray<class_PackedByteArray>` **get_data**\ (\ ) |const| :ref:`🔗<class_Image_method_get_data>`
 
 Returns a copy of the image's raw data.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_Image_method_get_data_size:
+
+.. rst-class:: classref-method
+
+:ref:`int<class_int>` **get_data_size**\ (\ ) |const| :ref:`🔗<class_Image_method_get_data_size>`
+
+Returns size (in bytes) of the image's raw data.
 
 .. rst-class:: classref-item-separator
 
@@ -1347,6 +1381,18 @@ Returns ``true`` if the image has no data.
 :ref:`bool<class_bool>` **is_invisible**\ (\ ) |const| :ref:`🔗<class_Image_method_is_invisible>`
 
 Returns ``true`` if all the image's pixels have an alpha value of 0. Returns ``false`` if any pixel has an alpha value higher than 0.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_Image_method_linear_to_srgb:
+
+.. rst-class:: classref-method
+
+|void| **linear_to_srgb**\ (\ ) :ref:`🔗<class_Image_method_linear_to_srgb>`
+
+Converts the entire image from the linear colorspace to the sRGB colorspace. Only works on images with :ref:`FORMAT_RGB8<class_Image_constant_FORMAT_RGB8>` or :ref:`FORMAT_RGBA8<class_Image_constant_FORMAT_RGBA8>` formats.
 
 .. rst-class:: classref-item-separator
 
@@ -1662,7 +1708,7 @@ Saves the image as a PNG file to a byte array.
 
 :ref:`Error<enum_@GlobalScope_Error>` **save_webp**\ (\ path\: :ref:`String<class_String>`, lossy\: :ref:`bool<class_bool>` = false, quality\: :ref:`float<class_float>` = 0.75\ ) |const| :ref:`🔗<class_Image_method_save_webp>`
 
-Saves the image as a WebP (Web Picture) file to the file at ``path``. By default it will save lossless. If ``lossy`` is true, the image will be saved lossy, using the ``quality`` setting between 0.0 and 1.0 (inclusive). Lossless WebP offers more efficient compression than PNG.
+Saves the image as a WebP (Web Picture) file to the file at ``path``. By default it will save lossless. If ``lossy`` is ``true``, the image will be saved lossy, using the ``quality`` setting between ``0.0`` and ``1.0`` (inclusive). Lossless WebP offers more efficient compression than PNG.
 
 \ **Note:** The WebP format is limited to a size of 16383×16383 pixels, while PNG can save larger images.
 
@@ -1676,7 +1722,7 @@ Saves the image as a WebP (Web Picture) file to the file at ``path``. By default
 
 :ref:`PackedByteArray<class_PackedByteArray>` **save_webp_to_buffer**\ (\ lossy\: :ref:`bool<class_bool>` = false, quality\: :ref:`float<class_float>` = 0.75\ ) |const| :ref:`🔗<class_Image_method_save_webp_to_buffer>`
 
-Saves the image as a WebP (Web Picture) file to a byte array. By default it will save lossless. If ``lossy`` is true, the image will be saved lossy, using the ``quality`` setting between 0.0 and 1.0 (inclusive). Lossless WebP offers more efficient compression than PNG.
+Saves the image as a WebP (Web Picture) file to a byte array. By default it will save lossless. If ``lossy`` is ``true``, the image will be saved lossy, using the ``quality`` setting between ``0.0`` and ``1.0`` (inclusive). Lossless WebP offers more efficient compression than PNG.
 
 \ **Note:** The WebP format is limited to a size of 16383×16383 pixels, while PNG can save larger images.
 
@@ -1703,8 +1749,6 @@ Overwrites data of an existing **Image**. Non-static equivalent of :ref:`create_
 |void| **set_pixel**\ (\ x\: :ref:`int<class_int>`, y\: :ref:`int<class_int>`, color\: :ref:`Color<class_Color>`\ ) :ref:`🔗<class_Image_method_set_pixel>`
 
 Sets the :ref:`Color<class_Color>` of the pixel at ``(x, y)`` to ``color``.
-
-\ **Example:**\ 
 
 
 .. tabs::
@@ -1740,8 +1784,6 @@ This is the same as :ref:`set_pixelv<class_Image_method_set_pixelv>`, but with a
 |void| **set_pixelv**\ (\ point\: :ref:`Vector2i<class_Vector2i>`, color\: :ref:`Color<class_Color>`\ ) :ref:`🔗<class_Image_method_set_pixelv>`
 
 Sets the :ref:`Color<class_Color>` of the pixel at ``point`` to ``color``.
-
-\ **Example:**\ 
 
 
 .. tabs::
@@ -1788,7 +1830,7 @@ Shrinks the image by a factor of 2 on each axis (this divides the pixel count by
 
 |void| **srgb_to_linear**\ (\ ) :ref:`🔗<class_Image_method_srgb_to_linear>`
 
-Converts the raw data from the sRGB colorspace to a linear scale.
+Converts the raw data from the sRGB colorspace to a linear scale. Only works on images with :ref:`FORMAT_RGB8<class_Image_constant_FORMAT_RGB8>` or :ref:`FORMAT_RGBA8<class_Image_constant_FORMAT_RGBA8>` formats.
 
 .. |virtual| replace:: :abbr:`virtual (This method should typically be overridden by the user to have any effect.)`
 .. |const| replace:: :abbr:`const (This method has no side effects. It doesn't modify any of the instance's member variables.)`
