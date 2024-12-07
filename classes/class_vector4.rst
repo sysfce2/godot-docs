@@ -187,40 +187,55 @@ Operators
 
 .. rst-class:: classref-descriptions-group
 
-Constants
----------
+Enumerations
+------------
+
+.. _enum_Vector4_Axis:
+
+.. rst-class:: classref-enumeration
+
+enum **Axis**: :ref:`🔗<enum_Vector4_Axis>`
 
 .. _class_Vector4_constant_AXIS_X:
 
-.. rst-class:: classref-constant
+.. rst-class:: classref-enumeration-constant
 
-**AXIS_X** = ``0`` :ref:`🔗<class_Vector4_constant_AXIS_X>`
+:ref:`Axis<enum_Vector4_Axis>` **AXIS_X** = ``0``
 
 Enumerated value for the X axis. Returned by :ref:`max_axis_index<class_Vector4_method_max_axis_index>` and :ref:`min_axis_index<class_Vector4_method_min_axis_index>`.
 
 .. _class_Vector4_constant_AXIS_Y:
 
-.. rst-class:: classref-constant
+.. rst-class:: classref-enumeration-constant
 
-**AXIS_Y** = ``1`` :ref:`🔗<class_Vector4_constant_AXIS_Y>`
+:ref:`Axis<enum_Vector4_Axis>` **AXIS_Y** = ``1``
 
 Enumerated value for the Y axis. Returned by :ref:`max_axis_index<class_Vector4_method_max_axis_index>` and :ref:`min_axis_index<class_Vector4_method_min_axis_index>`.
 
 .. _class_Vector4_constant_AXIS_Z:
 
-.. rst-class:: classref-constant
+.. rst-class:: classref-enumeration-constant
 
-**AXIS_Z** = ``2`` :ref:`🔗<class_Vector4_constant_AXIS_Z>`
+:ref:`Axis<enum_Vector4_Axis>` **AXIS_Z** = ``2``
 
 Enumerated value for the Z axis. Returned by :ref:`max_axis_index<class_Vector4_method_max_axis_index>` and :ref:`min_axis_index<class_Vector4_method_min_axis_index>`.
 
 .. _class_Vector4_constant_AXIS_W:
 
-.. rst-class:: classref-constant
+.. rst-class:: classref-enumeration-constant
 
-**AXIS_W** = ``3`` :ref:`🔗<class_Vector4_constant_AXIS_W>`
+:ref:`Axis<enum_Vector4_Axis>` **AXIS_W** = ``3``
 
 Enumerated value for the W axis. Returned by :ref:`max_axis_index<class_Vector4_method_max_axis_index>` and :ref:`min_axis_index<class_Vector4_method_min_axis_index>`.
+
+.. rst-class:: classref-section-separator
+
+----
+
+.. rst-class:: classref-descriptions-group
+
+Constants
+---------
 
 .. _class_Vector4_constant_ZERO:
 
@@ -669,7 +684,7 @@ Returns the component-wise minimum of this and ``with``, equivalent to ``Vector4
 
 :ref:`Vector4<class_Vector4>` **normalized**\ (\ ) |const| :ref:`🔗<class_Vector4_method_normalized>`
 
-Returns the result of scaling the vector to unit length. Equivalent to ``v / v.length()``. See also :ref:`is_normalized<class_Vector4_method_is_normalized>`.
+Returns the result of scaling the vector to unit length. Equivalent to ``v / v.length()``. Returns ``(0, 0, 0, 0)`` if ``v.length() == 0``. See also :ref:`is_normalized<class_Vector4_method_is_normalized>`.
 
 \ **Note:** This function may return incorrect values if the input vector length is near zero.
 
