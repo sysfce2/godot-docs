@@ -644,7 +644,9 @@ Returns the current value of the joypad axis at given index (see :ref:`JoyAxis<e
 
 :ref:`String<class_String>` **get_joy_guid**\ (\ device\: :ref:`int<class_int>`\ ) |const| :ref:`🔗<class_Input_method_get_joy_guid>`
 
-Returns an SDL2-compatible device GUID on platforms that use gamepad remapping, e.g. ``030000004c050000c405000000010000``. Returns ``"Default Gamepad"`` otherwise. Godot uses the `SDL2 game controller database <https://github.com/gabomdq/SDL_GameControllerDB>`__ to determine gamepad names and mappings based on this GUID.
+Returns an SDL2-compatible device GUID on platforms that use gamepad remapping, e.g. ``030000004c050000c405000000010000``. Returns an empty string if it cannot be found. Godot uses the `SDL2 game controller database <https://github.com/gabomdq/SDL_GameControllerDB>`__ to determine gamepad names and mappings based on this GUID.
+
+On Windows, all XInput joypad GUIDs will be overridden by Godot to ``__XINPUT_DEVICE__``, because their mappings are the same.
 
 .. rst-class:: classref-item-separator
 
@@ -658,9 +660,13 @@ Returns an SDL2-compatible device GUID on platforms that use gamepad remapping, 
 
 Returns a dictionary with extra platform-specific information about the device, e.g. the raw gamepad name from the OS or the Steam Input index.
 
-On Windows the dictionary contains the following fields:
+On Windows, the dictionary contains the following fields:
 
-\ ``xinput_index``: The index of the controller in the XInput system.
+\ ``xinput_index``: The index of the controller in the XInput system. Undefined for DirectInput devices.
+
+\ ``vendor_id``: The USB vendor ID of the device.
+
+\ ``product_id``: The USB product ID of the device.
 
 On Linux:
 
@@ -671,6 +677,8 @@ On Linux:
 \ ``product_id``: The USB product ID of the device.
 
 \ ``steam_input_index``: The Steam Input gamepad index, if the device is not a Steam Input device this key won't be present.
+
+\ **Note:** The returned dictionary is always empty on Web, iOS, Android, and macOS.
 
 .. rst-class:: classref-item-separator
 
@@ -934,8 +942,6 @@ Returns ``true`` if you are pressing the key in the physical location on the 101
 
 Feeds an :ref:`InputEvent<class_InputEvent>` to the game. Can be used to artificially trigger input events from code. Also generates :ref:`Node._input<class_Node_private_method__input>` calls.
 
-\ **Example:**\ 
-
 
 .. tabs::
 
@@ -1115,9 +1121,9 @@ Stops the vibration of the joypad started with :ref:`start_joy_vibration<class_I
 
 |void| **vibrate_handheld**\ (\ duration_ms\: :ref:`int<class_int>` = 500, amplitude\: :ref:`float<class_float>` = -1.0\ ) :ref:`🔗<class_Input_method_vibrate_handheld>`
 
-**Note:** While ``amplitude`` expects a value between 0 and 1, -1 does the default amplitude for the device.
-
 Vibrate the handheld device for the specified duration in milliseconds.
+
+\ ``amplitude`` is the strength of the vibration, as a value between ``0.0`` and ``1.0``. If set to ``-1.0``, the default vibration strength of the device is used.
 
 \ **Note:** This method is implemented on Android, iOS, and Web. It has no effect on other platforms.
 
