@@ -196,6 +196,9 @@ Global built-ins are available everywhere, including custom functions.
 +-----------------------------+-----------------------------------------------------------------------------------------------------+
 | in bool **IS_MULTIVIEW**    | ``true`` when output is stereoscopic (XR), ``false`` when output is monoscopic.                     |
 +-----------------------------+-----------------------------------------------------------------------------------------------------+
+| in bool **IN_SHADOW_PASS**  | ``true`` when the shader is being rendered in a shadow mapping pass, ``false`` otherwise.           |
+|                             | This can be used to render objects differently in shadow maps compared to their regular rendering.  |
++-----------------------------+-----------------------------------------------------------------------------------------------------+
 
 Vertex built-ins
 ----------------
