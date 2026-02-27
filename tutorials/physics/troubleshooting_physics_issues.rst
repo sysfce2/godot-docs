@@ -66,9 +66,12 @@ shape is not a child of the visual representation in this case.
 
 Since resources are shared by default, you'll have to make the collision shape
 resource unique if you don't want the change to be applied to all nodes using
-the same collision shape resource in the scene. This can be done by calling
-``duplicate()`` in a script on the collision shape resource *before* changing
-its size.
+the same collision shape resource in the scene. This can be done in two ways:
+
+- In the editor, by clicking :menu:`Make Unique` in the CollisionShape
+  resource dropdown in the inspector, then changing its size.
+- In a script, by calling ``duplicate()`` in a script on the collision shape
+  resource *before* changing its size.
 
 Thin objects are wobbly when resting on the floor
 -------------------------------------------------
