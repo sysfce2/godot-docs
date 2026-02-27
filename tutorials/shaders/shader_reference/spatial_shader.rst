@@ -360,8 +360,9 @@ these properties, and if you don't write to them, Godot will optimize away the c
 +========================================+==================================================================================================+
 | in vec2 **VIEWPORT_SIZE**              | Size of viewport (in pixels).                                                                    |
 +----------------------------------------+--------------------------------------------------------------------------------------------------+
-| in vec4 **FRAGCOORD**                  | Coordinate of pixel center in screen space. ``xy`` specifies position in window. Origin is upper |
-|                                        | left. ``z`` specifies fragment depth. It is also used as the output value for the fragment depth |
+| in vec4 **FRAGCOORD**                  | Coordinate of pixel center in screen space. ``xy`` specifies position in window. Upper-left of   |
+|                                        | the viewport is the origin, ``(0.0, 0.0)``. Bottom-right of the viewport is ``(1.0, 1.0)``.      |
+|                                        | ``z`` specifies fragment depth. It is also used as the output value for the fragment depth       |
 |                                        | unless ``DEPTH`` is written to.                                                                  |
 +----------------------------------------+--------------------------------------------------------------------------------------------------+
 | in bool **FRONT_FACING**               | ``true`` if current face is front facing, ``false`` otherwise.                                   |
@@ -550,10 +551,11 @@ If you want the lights to add together, add the light contribution to ``DIFFUSE_
 +===================================+========================================================================+
 | in vec2 **VIEWPORT_SIZE**         | Size of viewport (in pixels).                                          |
 +-----------------------------------+------------------------------------------------------------------------+
-| in vec4 **FRAGCOORD**             | Coordinate of pixel center in screen space.                            |
-|                                   | ``xy`` specifies position in window, ``z``                             |
-|                                   | specifies fragment depth if ``DEPTH`` is not used.                     |
-|                                   | Origin is lower-left.                                                  |
+| in vec4 **FRAGCOORD**             | Coordinate of pixel center in screen space. ``xy`` specifies position  |
+|                                   | in window. Upper-left of the viewport is the origin, ``(0.0, 0.0)``.   |
+|                                   | Bottom-right of the viewport is ``(1.0, 1.0)``.                        |
+|                                   | ``z`` specifies fragment depth. It is also used as the output value    |
+|                                   | for the fragment depth unless ``DEPTH`` is written to.                 |
 +-----------------------------------+------------------------------------------------------------------------+
 | in mat4 **MODEL_MATRIX**          | Model/local space to world space transform.                            |
 +-----------------------------------+------------------------------------------------------------------------+
