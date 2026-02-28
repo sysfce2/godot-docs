@@ -652,6 +652,8 @@ This is a shorthand for writing ``Input.get_action_strength("positive_action") -
 
 Returns an :ref:`Array<class_Array>` containing the device IDs of all currently connected joypads.
 
+\ **Note:** The order of connected joypads can not be guaranteed to be the same after a project and/or the editor is restarted, because Godot doesn't save the order of joypad connections. Joypads are registered in the order they are discovered by Godot.
+
 .. rst-class:: classref-item-separator
 
 ----

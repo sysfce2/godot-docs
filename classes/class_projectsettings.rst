@@ -5064,7 +5064,7 @@ If ``true``, subwindows are embedded in the main window (this is also called sin
 
 If ``false``, subwindows are created as separate windows (this is also called multi-window mode). This allows them to be moved outside the main window and use native operating system window decorations.
 
-This is equivalent to :ref:`EditorSettings.interface/editor/single_window_mode<class_EditorSettings_property_interface/editor/single_window_mode>` in the editor.
+This is equivalent to :ref:`EditorSettings.interface/editor/display/single_window_mode<class_EditorSettings_property_interface/editor/display/single_window_mode>` in the editor.
 
 .. rst-class:: classref-item-separator
 
@@ -5076,7 +5076,7 @@ This is equivalent to :ref:`EditorSettings.interface/editor/single_window_mode<c
 
 :ref:`int<class_int>` **display/window/vsync/vsync_mode** = ``1`` :ref:`🔗<class_ProjectSettings_property_display/window/vsync/vsync_mode>`
 
-Sets the V-Sync mode for the main game window. The editor's own V-Sync mode can be set using :ref:`EditorSettings.interface/editor/vsync_mode<class_EditorSettings_property_interface/editor/vsync_mode>`.
+Sets the V-Sync mode for the main game window. The editor's own V-Sync mode can be set using :ref:`EditorSettings.interface/editor/display/vsync_mode<class_EditorSettings_property_interface/editor/display/vsync_mode>`.
 
 See :ref:`VSyncMode<enum_DisplayServer_VSyncMode>` for possible values and how they affect the behavior of your application.
 

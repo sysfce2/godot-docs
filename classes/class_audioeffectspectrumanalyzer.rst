@@ -12,23 +12,25 @@ AudioEffectSpectrumAnalyzer
 
 **Inherits:** :ref:`AudioEffect<class_AudioEffect>` **<** :ref:`Resource<class_Resource>` **<** :ref:`RefCounted<class_RefCounted>` **<** :ref:`Object<class_Object>`
 
-Audio effect that can be used for real-time audio visualizations.
+Creates an :ref:`AudioEffectInstance<class_AudioEffectInstance>` which performs frequency analysis and exposes results to be accessed in real-time.
 
 .. rst-class:: classref-introduction-group
 
 Description
 -----------
 
-This audio effect does not affect sound output, but can be used for real-time audio visualizations.
+Calculates a Fourier Transform of the audio signal. This effect does not alter the audio. Can be used for creating real-time audio visualizations, like a spectrogram.
 
-This resource configures an :ref:`AudioEffectSpectrumAnalyzerInstance<class_AudioEffectSpectrumAnalyzerInstance>`, which performs the actual analysis at runtime. An instance can be obtained with :ref:`AudioServer.get_bus_effect_instance()<class_AudioServer_method_get_bus_effect_instance>`.
-
-See also :ref:`AudioStreamGenerator<class_AudioStreamGenerator>` for procedurally generating sounds.
+This resource configures an :ref:`AudioEffectSpectrumAnalyzerInstance<class_AudioEffectSpectrumAnalyzerInstance>`, which performs the actual analysis at runtime. An instance should be obtained with :ref:`AudioServer.get_bus_effect_instance()<class_AudioServer_method_get_bus_effect_instance>` to make use of this effect.
 
 .. rst-class:: classref-introduction-group
 
 Tutorials
 ---------
+
+- :doc:`Audio buses <../tutorials/audio/audio_buses>`
+
+- :doc:`Audio effects <../tutorials/audio/audio_effects>`
 
 - `Audio Spectrum Visualizer Demo <https://godotengine.org/asset-library/asset/2762>`__
 
@@ -129,7 +131,7 @@ Property Descriptions
 - |void| **set_buffer_length**\ (\ value\: :ref:`float<class_float>`\ )
 - :ref:`float<class_float>` **get_buffer_length**\ (\ )
 
-The length of the buffer to keep (in seconds). Higher values keep data around for longer, but require more memory.
+The length of the buffer to keep, in seconds. Higher values keep data around for longer, but require more memory. Value can range from 0.1 to 4.
 
 .. rst-class:: classref-item-separator
 

@@ -263,7 +263,7 @@ If ``true``, converts the imported image's colors to match :ref:`EditorSettings.
 
 :ref:`bool<class_bool>` **editor/scale_with_editor_scale** = ``false`` :ref:`🔗<class_ResourceImporterTexture_property_editor/scale_with_editor_scale>`
 
-If ``true``, scales the imported image to match :ref:`EditorSettings.interface/editor/custom_display_scale<class_EditorSettings_property_interface/editor/custom_display_scale>`. This should be enabled for editor plugin icons and custom class icons, but should be left disabled otherwise.
+If ``true``, scales the imported image to match :ref:`EditorSettings.interface/editor/appearance/custom_display_scale<class_EditorSettings_property_interface/editor/appearance/custom_display_scale>`. This should be enabled for editor plugin icons and custom class icons, but should be left disabled otherwise.
 
 \ **Note:** Only available for SVG images.
 
