@@ -724,6 +724,8 @@ Objects are displayed as wireframe models.
 
 \ **Note:** :ref:`RenderingServer.set_debug_generate_wireframes()<class_RenderingServer_method_set_debug_generate_wireframes>` must be called before loading any meshes for wireframes to be visible when using the Compatibility renderer.
 
+\ **Note:** In the Compatibility renderer, backfaces are always visible when using wireframe rendering. In the Forward+ and Mobile renderers, wireframes follow the material's backface culling properties instead.
+
 .. _class_Viewport_constant_DEBUG_DRAW_NORMAL_BUFFER:
 
 .. rst-class:: classref-enumeration-constant
