@@ -16,8 +16,8 @@ Controllers are supported on Windows, macOS, Linux, Android, iOS, and Web.
 
     Prior to Godot 4.5, the engine used its own controller support code.
     This can cause certain controllers to behave incorrectly.
-    This custom code is still used to support controllers on Android, iOS,
-    and Web, so it may result in issues appearing only on those platforms.
+    This custom code is still used to support controllers on Android and Web,
+    so it may result in issues appearing only on those platforms.
 
 Note that more specialized devices such as steering wheels, rudder pedals and
 `HOTAS <https://en.wikipedia.org/wiki/HOTAS>`__ are less tested and may not
@@ -363,16 +363,15 @@ Controllers can still work without udev support, but it is less reliable as
 regular polling must be used to check for controllers being connected or
 disconnected during gameplay (hotplugging).
 
-Android/iOS
-^^^^^^^^^^^
+Android
+^^^^^^^
 
 As described at the top of the page, controller support on mobile platforms relies
 on a custom implementation instead of using SDL for input. This means controller
 support may be less reliable than on desktop platforms.
 
 Support for SDL-based controller input on mobile platforms is
-`planned <https://github.com/godotengine/godot/pull/109645>`__
-in a future release.
+planned in a future release.
 
 Web
 ^^^
@@ -383,4 +382,4 @@ result, you may have to instruct your players to use a different browser if they
 can't get their controller to work.
 
 Like for mobile platforms, support for SDL-based controller input on the web platform
-is `planned <https://github.com/godotengine/godot/pull/109645>`__ in a future release.
+is planned in a future release.

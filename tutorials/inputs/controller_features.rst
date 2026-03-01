@@ -9,7 +9,7 @@ and how you can get started with them in Godot.
 
 .. warning::
 
-    These controller features are currently only supported on Windows, macOS, and Linux.
+    These controller features are currently only supported on Windows, macOS, iOS, and Linux.
 
 
 .. warning::
